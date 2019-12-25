@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ListView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.kiliansteenman.beancounter.R
 import com.kiliansteenman.beancounter.internal.data.room.BeanCounterDatabase
@@ -24,7 +25,7 @@ class BeanCounterActivity : Activity() {
         setContentView(R.layout.beancounter)
 
         val adapter = BeanCounterAdapter()
-        findViewById<ListView>(R.id.beancounter_listview).adapter = adapter
+        findViewById<RecyclerView>(R.id.beancounter_recyclerview).adapter = adapter
 
         Executors.newSingleThreadExecutor().execute {
             val logs = db.analyticsLogEventDao().getAll()

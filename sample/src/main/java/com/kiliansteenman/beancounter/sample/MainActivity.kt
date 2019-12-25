@@ -1,11 +1,10 @@
 package com.kiliansteenman.beancounter.sample
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.kiliansteenman.beancounter.BeanCounter
-import com.kiliansteenman.beancounter.internal.ui.BeanCounterActivity
+import com.kiliansteenman.beancounter.BeanCounterIntentFactory
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFramework
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkAdapter
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkEvent
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.main_open_log).setOnClickListener {
-            startActivity(Intent(this@MainActivity, BeanCounterActivity::class.java))
+            startActivity(BeanCounterIntentFactory.createIntent(this@MainActivity))
         }
 
         val analyticsFramework = SomeAnalyticsFramework()

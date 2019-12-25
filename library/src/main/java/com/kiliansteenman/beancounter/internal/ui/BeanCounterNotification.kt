@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.kiliansteenman.beancounter.BeanCounterIntentFactory
 import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
 
 class BeanCounterNotification(
@@ -38,7 +39,7 @@ class BeanCounterNotification(
                 PendingIntent.getActivity(
                     context,
                     NOTIFICATION_ID,
-                    Intent(context, BeanCounterActivity::class.java),
+                    BeanCounterIntentFactory.createIntent(context),
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
