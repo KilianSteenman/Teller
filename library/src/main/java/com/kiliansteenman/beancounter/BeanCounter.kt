@@ -8,7 +8,7 @@ import com.kiliansteenman.beancounter.internal.data.room.RoomAnalyticsLogReposit
 import com.kiliansteenman.beancounter.internal.ui.BeanCounterNotification
 import com.kiliansteenman.beancounter.logging.LoggingAdapter
 
-class BeanCounter(val context: Context) {
+class BeanCounter(private val context: Context) {
 
     val typeFactory = TypeFactory()
 
@@ -19,7 +19,10 @@ class BeanCounter(val context: Context) {
                 .build()
         }
 
-    val logger = AnalyticsLogger(RoomAnalyticsLogRepository(db.analyticsLogEventDao()), BeanCounterNotification(context))
+    val logger = AnalyticsLogger(
+        RoomAnalyticsLogRepository(db.analyticsLogEventDao()),
+        BeanCounterNotification(context)
+    )
 
     inline fun <reified T> addAdapter(adapter: AnalyticsAdapter<T>) {
         typeFactory.addMapping(T::class.java, adapter)
