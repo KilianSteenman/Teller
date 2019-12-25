@@ -1,8 +1,8 @@
 package com.kiliansteenman.beancounter.internal.ui
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +12,7 @@ import com.kiliansteenman.beancounter.internal.data.room.BeanCounterDatabase
 import java.util.concurrent.Executors
 
 
-class BeanCounterActivity : Activity() {
+class BeanCounterActivity : AppCompatActivity() {
 
     private val db: BeanCounterDatabase
         get() {

@@ -3,7 +3,9 @@
 
     <application>
 
-        <activity android:name=".internal.ui.BeanCounterActivity" />
+        <activity
+            android:name=".internal.ui.BeanCounterActivity"
+            android:theme="@style/BeanCounterTheme" />
 
     </application>
 
