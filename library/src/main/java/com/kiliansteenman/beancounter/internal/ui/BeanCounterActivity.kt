@@ -3,12 +3,14 @@ package com.kiliansteenman.beancounter.internal.ui
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ListView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.kiliansteenman.beancounter.R
 import com.kiliansteenman.beancounter.internal.data.room.BeanCounterDatabase
 import java.util.concurrent.Executors
+
 
 class BeanCounterActivity : Activity() {
 
@@ -25,7 +27,11 @@ class BeanCounterActivity : Activity() {
         setContentView(R.layout.beancounter)
 
         val adapter = BeanCounterAdapter()
-        findViewById<RecyclerView>(R.id.beancounter_recyclerview).adapter = adapter
+        findViewById<RecyclerView>(R.id.beancounter_recyclerview).apply {
+            this.adapter = adapter
+            addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
+        }
+
 
         Executors.newSingleThreadExecutor().execute {
             val logs = db.analyticsLogEventDao().getAll()
