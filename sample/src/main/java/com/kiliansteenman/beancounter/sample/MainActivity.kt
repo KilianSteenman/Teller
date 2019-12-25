@@ -19,10 +19,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.main_send_event).setOnClickListener {
-            beanCounter.count(SomeAnalyticsFrameworkEvent("Superduper event"))
+            beanCounter.count(
+                SomeAnalyticsFrameworkEvent("click", mapOf("button_press" to "send_event"))
+            )
         }
 
         findViewById<Button>(R.id.main_open_log).setOnClickListener {
+            beanCounter.count(
+                SomeAnalyticsFrameworkEvent("click", mapOf("button_press" to "open_log"))
+            )
+
             startActivity(BeanCounterIntentFactory.createIntent(this@MainActivity))
         }
 

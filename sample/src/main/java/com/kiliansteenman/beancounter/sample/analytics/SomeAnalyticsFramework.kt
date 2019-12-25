@@ -7,4 +7,7 @@ class SomeAnalyticsFramework {
     }
 }
 
-data class SomeAnalyticsFrameworkEvent(val name: String)
+data class SomeAnalyticsFrameworkEvent(
+    val name: String,
+    val params: Map<String, String> = emptyMap()
+)

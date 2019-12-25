@@ -12,9 +12,10 @@ class SomeAnalyticsFrameworkLoggingAdapter : LoggingAdapter<SomeAnalyticsFramewo
 
     override fun toLogEvent(event: SomeAnalyticsFrameworkEvent): AnalyticsLogEvent =
         AnalyticsLogEvent(
-            type = "type",
+            type = "Framework",
             logDate = System.currentTimeMillis(),
             title = event.name,
-            content = "Unknown"
+            content = event.params.map { entry -> "${entry.key}: ${entry.value}" }
+                .joinToString(separator = "\n")
         )
 }
