@@ -47,7 +47,7 @@ class BeanCounterNotification(
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
             .setAutoCancel(true)
             .setStyle(NotificationCompat.InboxStyle())
-            .setContentTitle(logEvent.title)
+            .setContentTitle("${logEvent.type}: ${logEvent.title}")
             .setContentText(logEvent.content)
             .build()
 
