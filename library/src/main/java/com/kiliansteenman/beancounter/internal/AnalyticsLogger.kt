@@ -1,12 +1,13 @@
 package com.kiliansteenman.beancounter.internal
 
-import android.util.Log
 import com.kiliansteenman.beancounter.internal.data.AnalyticsLogRepository
+import com.kiliansteenman.beancounter.internal.ui.BeanCounterNotification
 import com.kiliansteenman.beancounter.logging.LoggingAdapter
 import com.kiliansteenman.beancounter.logging.LoggingTypeFactory
 
 class AnalyticsLogger(
-    val analyticsLogRepository: AnalyticsLogRepository
+    val analyticsLogRepository: AnalyticsLogRepository,
+    val notification: BeanCounterNotification
 ) {
 
     val loggingTypeFactory = LoggingTypeFactory()
@@ -18,12 +19,9 @@ class AnalyticsLogger(
     inline fun <reified T> log(event: T) {
         val loggingAdapter = loggingTypeFactory.getAdapterForType(T::class.java)
         if (loggingAdapter != null) {
-            analyticsLogRepository.addLog(loggingAdapter.toLogEvent(event))
-
-            Log.i(
-                "BeanCounter",
-                "${loggingAdapter.getTitle(event)}: ${loggingAdapter.getContent(event)}"
-            )
+            val eventLog = loggingAdapter.toLogEvent(event)
+            analyticsLogRepository.addLog(eventLog)
+            notification.show(eventLog)
         }
     }
 }

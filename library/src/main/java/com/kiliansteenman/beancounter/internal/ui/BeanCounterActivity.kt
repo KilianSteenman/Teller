@@ -7,7 +7,6 @@ import android.widget.ListView
 import androidx.room.Room
 import com.kiliansteenman.beancounter.R
 import com.kiliansteenman.beancounter.internal.data.room.BeanCounterDatabase
-import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class BeanCounterActivity : Activity() {
