@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.kiliansteenman.beancounter.R
 import com.kiliansteenman.beancounter.internal.data.room.BeanCounterDatabase
+import com.kiliansteenman.beancounter.internal.ui.detail.DetailActivity
 import java.util.concurrent.Executors
 
 
-class BeanCounterActivity : AppCompatActivity() {
+class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {
 
     private val db: BeanCounterDatabase
         get() {
@@ -24,14 +25,15 @@ class BeanCounterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.beancounter)
 
-        val adapter = BeanCounterAdapter()
+        val adapter = BeanCounterAdapter { logEvent ->
+            startActivity(DetailActivity.createIntent(this, logEvent.id))
+        }
+
         findViewById<RecyclerView>(R.id.beancounter_recyclerview).apply {
             this.adapter = adapter
             addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
         }
-
 
         Executors.newSingleThreadExecutor().execute {
             val logs = db.analyticsLogEventDao().getAll()

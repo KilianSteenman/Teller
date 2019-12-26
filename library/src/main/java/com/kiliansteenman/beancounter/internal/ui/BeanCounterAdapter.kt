@@ -11,7 +11,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BeanCounterAdapter : RecyclerView.Adapter<BeanCounterAdapter.BeanCounterViewHolder>() {
+class BeanCounterAdapter(
+    private val onItemClickListener: (AnalyticsLogEvent) -> Unit
+) : RecyclerView.Adapter<BeanCounterAdapter.BeanCounterViewHolder>() {
 
     var logs: List<AnalyticsLogEvent> = emptyList()
         set(value) {
@@ -43,6 +45,8 @@ class BeanCounterAdapter : RecyclerView.Adapter<BeanCounterAdapter.BeanCounterVi
             titleView.text = logEvent.title
             contentView.text = logEvent.content
             timeStampView.text = logEvent.logDate.formatTimeStamp()
+
+            itemView.setOnClickListener { onItemClickListener.invoke(logEvent) }
         }
 
         private fun Long.formatTimeStamp(): String {

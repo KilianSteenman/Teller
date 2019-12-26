@@ -17,4 +17,7 @@ interface AnalyticsLogEventDao {
 
     @Delete
     fun delete(event: AnalyticsLogEvent)
+
+    @Query("SELECT * FROM analyticsLogEvent WHERE id=:logId")
+    fun get(logId: Long): AnalyticsLogEvent
 }

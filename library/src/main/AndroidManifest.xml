@@ -7,6 +7,10 @@
             android:name=".internal.ui.BeanCounterActivity"
             android:theme="@style/BeanCounterTheme" />
 
+        <activity
+            android:name=".internal.ui.detail.DetailActivity"
+            android:theme="@style/BeanCounterTheme" />
+
     </application>
 
 </manifest>
