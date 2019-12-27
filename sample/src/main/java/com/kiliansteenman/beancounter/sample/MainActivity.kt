@@ -1,10 +1,12 @@
 package com.kiliansteenman.beancounter.sample
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.kiliansteenman.beancounter.BeanCounter
 import com.kiliansteenman.beancounter.BeanCounterIntentFactory
+import com.kiliansteenman.beancounter.internal.LoggerProvider
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFramework
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkAdapter
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkEvent
@@ -33,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val analyticsFramework = SomeAnalyticsFramework()
-        beanCounter = BeanCounter(applicationContext).apply {
+        beanCounter = BeanCounter().apply {
+            logger = LoggerProvider.createAnalyticsLogger(applicationContext)
             addAdapter(SomeAnalyticsFrameworkAdapter(analyticsFramework))
             addLoggingAdapter(SomeAnalyticsFrameworkLoggingAdapter())
         }
