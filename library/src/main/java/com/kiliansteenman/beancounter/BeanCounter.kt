@@ -9,16 +9,16 @@ class BeanCounter {
 
     var logger: AnalyticsLogger? = null
 
-    inline fun <reified T> addAdapter(adapter: AnalyticsAdapter<T>) {
-        typeFactory.addMapping(T::class.java, adapter)
+    inline fun <reified T: Any> addAdapter(adapter: AnalyticsAdapter<T>) {
+        typeFactory.addMapping(T::class, adapter)
     }
 
     inline fun <reified T> addLoggingAdapter(adapter: LoggingAdapter<T>) {
         logger?.addMapping(T::class.java, adapter)
     }
 
-    inline fun <reified T> count(event: T) {
-        val adapter = typeFactory.getAdapterForType(T::class.java)
+    inline fun <reified T: Any> count(event: T) {
+        val adapter = typeFactory.getAdapterForType(T::class)
         adapter.count(event)
         logger?.log(event)
     }

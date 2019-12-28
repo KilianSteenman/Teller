@@ -1,14 +1,16 @@
 package com.kiliansteenman.beancounter
 
+import kotlin.reflect.KClass
+
 class TypeFactory {
 
     private val mapping: MutableMap<String, AnalyticsAdapter<*>> = mutableMapOf()
 
-    fun <T> addMapping(bean: Class<T>, adapter: AnalyticsAdapter<*>) {
-        mapping[bean.name] = adapter
+    fun <T : Any> addMapping(bean: KClass<T>, adapter: AnalyticsAdapter<*>) {
+        mapping[bean.toString()] = adapter
     }
 
-    fun <T> getAdapterForType(bean: Class<T>): AnalyticsAdapter<T> {
-        return mapping[bean.name] as AnalyticsAdapter<T>
+    fun <T : Any> getAdapterForType(bean: KClass<T>): AnalyticsAdapter<T> {
+        return mapping[bean.toString()] as AnalyticsAdapter<T>
     }
 }
