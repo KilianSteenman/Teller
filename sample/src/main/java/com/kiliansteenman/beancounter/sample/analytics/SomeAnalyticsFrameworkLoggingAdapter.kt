@@ -12,7 +12,8 @@ class SomeAnalyticsFrameworkLoggingAdapter : LoggingAdapter<SomeAnalyticsFramewo
 
     override fun toLogEvent(event: SomeAnalyticsFrameworkEvent): AnalyticsLogEvent =
         AnalyticsLogEvent(
-            type = "Framework",
+            framework = "SomeFramework",
+            type = "ScreenView",
             logDate = System.currentTimeMillis(),
             title = event.name,
             content = event.params.map { entry -> "${entry.key}: ${entry.value}" }
