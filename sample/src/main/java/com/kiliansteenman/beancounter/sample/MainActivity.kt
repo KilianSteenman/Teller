@@ -1,6 +1,5 @@
 package com.kiliansteenman.beancounter.sample
 
-import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -12,13 +11,12 @@ import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkAda
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkEvent
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkLoggingAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private lateinit var beanCounter: BeanCounter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.main_send_event).setOnClickListener {
             beanCounter.count(
