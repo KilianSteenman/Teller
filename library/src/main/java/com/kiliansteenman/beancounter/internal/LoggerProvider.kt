@@ -9,15 +9,9 @@ import com.kiliansteenman.beancounter.internal.ui.BeanCounterNotification
 
 object LoggerProvider {
 
-    private fun getAnalyticsLogEventDao(context: Context): AnalyticsLogEventDao =
-        Room.databaseBuilder(context, BeanCounterDatabase::class.java, "database-name")
-            .fallbackToDestructiveMigration()
-            .build()
-            .analyticsLogEventDao()
-
     fun createAnalyticsLogger(context: Context): AnalyticsLogger =
         AnalyticsLogger(
-            RoomAnalyticsLogRepository(getAnalyticsLogEventDao(context)),
+            RoomAnalyticsLogRepository(context),
             BeanCounterNotification(context)
         )
 }

@@ -1,5 +1,6 @@
 package com.kiliansteenman.beancounter.internal.data.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,7 +11,7 @@ import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
 interface AnalyticsLogEventDao {
 
     @Query("SELECT * FROM analyticsLogEvent")
-    fun getAll(): List<AnalyticsLogEvent>
+    fun getAll(): LiveData<List<AnalyticsLogEvent>>
 
     @Insert
     fun insertAll(vararg events: AnalyticsLogEvent)
@@ -20,4 +21,7 @@ interface AnalyticsLogEventDao {
 
     @Query("SELECT * FROM analyticsLogEvent WHERE id=:logId")
     fun get(logId: Long): AnalyticsLogEvent
+
+    @Query("SELECT DISTINCT framework FROM analyticslogevent")
+    fun getFrameWorks(): List<String>
 }
