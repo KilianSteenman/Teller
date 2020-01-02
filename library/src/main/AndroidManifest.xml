@@ -5,6 +5,9 @@
 
         <activity
             android:name=".internal.ui.BeanCounterActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.kiliansteenman.beancounter.task"
             android:theme="@style/BeanCounterTheme" />
 
         <activity
