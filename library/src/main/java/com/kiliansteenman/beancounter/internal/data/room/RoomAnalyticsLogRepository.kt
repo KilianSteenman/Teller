@@ -29,7 +29,7 @@ class RoomAnalyticsLogRepository(
     override fun getAll(): LiveData<List<AnalyticsLogEvent>> = analyticsLogEventDao.getAll()
 
     override fun clearLog() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        executor.execute { analyticsLogEventDao.clearAll() }
     }
 
     override fun getFrameWorks(): List<String> = analyticsLogEventDao.getFrameWorks()

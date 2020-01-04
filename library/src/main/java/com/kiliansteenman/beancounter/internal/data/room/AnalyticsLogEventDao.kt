@@ -24,4 +24,7 @@ interface AnalyticsLogEventDao {
 
     @Query("SELECT DISTINCT framework FROM analyticslogevent")
     fun getFrameWorks(): List<String>
+
+    @Query("DELETE FROM analyticslogevent")
+    fun clearAll()
 }
