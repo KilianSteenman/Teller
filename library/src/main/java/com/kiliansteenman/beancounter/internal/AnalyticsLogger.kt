@@ -13,8 +13,8 @@ interface AnalyticsLogger {
 }
 
 class DefaultAnalyticsLogger(
-    val analyticsLogRepository: AnalyticsLogRepository,
-    val notification: BeanCounterNotification
+    private val analyticsLogRepository: AnalyticsLogRepository,
+    private val notification: BeanCounterNotification
 ) : AnalyticsLogger {
 
     private val loggingTypeFactory =
