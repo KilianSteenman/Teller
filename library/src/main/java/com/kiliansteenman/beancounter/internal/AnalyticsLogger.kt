@@ -12,7 +12,7 @@ interface AnalyticsLogger {
     fun <T : Any> log(event: T)
 }
 
-class DefaultAnalyticsLogger(
+internal class DefaultAnalyticsLogger(
     private val analyticsLogRepository: AnalyticsLogRepository,
     private val notification: BeanCounterNotification
 ) : AnalyticsLogger {
