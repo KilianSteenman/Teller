@@ -43,10 +43,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
         beanCounter = BeanCounter().apply {
             logger = loggerAdapter
-            addAdapter(
-                SomeAnalyticsFrameworkEvent::class,
-                SomeAnalyticsFrameworkAdapter(analyticsFramework)
-            )
+            addAdapter(SomeAnalyticsFrameworkAdapter(analyticsFramework))
         }
     }
 }
