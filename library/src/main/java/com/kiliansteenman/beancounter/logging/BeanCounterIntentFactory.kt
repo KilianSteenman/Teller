@@ -1,4 +1,4 @@
-package com.kiliansteenman.beancounter
+package com.kiliansteenman.beancounter.logging
 
 import android.content.Context
 import android.content.Intent

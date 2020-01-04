@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.kiliansteenman.beancounter.BeanCounter
-import com.kiliansteenman.beancounter.BeanCounterIntentFactory
+import com.kiliansteenman.beancounter.logging.BeanCounterIntentFactory
 import com.kiliansteenman.beancounter.internal.LoggerProvider
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFramework
 import com.kiliansteenman.beancounter.sample.analytics.SomeAnalyticsFrameworkAdapter
