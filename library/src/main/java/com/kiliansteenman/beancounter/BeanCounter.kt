@@ -9,7 +9,11 @@ class BeanCounter {
 
     var logger: BeanCounterLogger? = null
 
-    fun <T : Any> addAdapter(adapter: AnalyticsAdapter<T>, type: KClass<T>) {
+    inline fun <reified T : Any> addAdapter(adapter: AnalyticsAdapter<T>) {
+        addAdapter(T::class, adapter)
+    }
+
+    fun <T : Any> addAdapter(type: KClass<T>, adapter: AnalyticsAdapter<T>) {
         val className =
             type.qualifiedName ?: throw IllegalArgumentException("Type requires a valid class name")
 
