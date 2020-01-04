@@ -12,4 +12,9 @@ class BeanCounterViewModel(application: Application) : AndroidViewModel(applicat
     private val logRepository: AnalyticsLogRepository = RoomAnalyticsLogRepository(application)
 
     val logEvents: LiveData<List<AnalyticsLogEvent>> = logRepository.getAll()
+
+    fun onClearLogClicked(): Boolean {
+        logRepository.clearLog()
+        return true
+    }
 }

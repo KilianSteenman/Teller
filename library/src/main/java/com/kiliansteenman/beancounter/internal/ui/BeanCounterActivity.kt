@@ -1,6 +1,8 @@
 package com.kiliansteenman.beancounter.internal.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +13,8 @@ import com.kiliansteenman.beancounter.R
 import com.kiliansteenman.beancounter.internal.ui.detail.DetailActivity
 
 class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {
+
+    private val viewModel: BeanCounterViewModel by lazy { ViewModelProviders.of(this)[BeanCounterViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,23 @@ class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {
             addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
         }
 
-        val model = ViewModelProviders.of(this)[BeanCounterViewModel::class.java]
-        model.logEvents.observe(this, Observer { events -> adapter.logs = events })
+        viewModel.logEvents.observe(this, Observer { events -> adapter.logs = events })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.beancounter_log, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_beancounter_log_clear_all -> viewModel.onClearLogClicked()
+            R.id.menu_beancounter_log_filter -> openFilters()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun openFilters(): Boolean {
+        return true
     }
 }
