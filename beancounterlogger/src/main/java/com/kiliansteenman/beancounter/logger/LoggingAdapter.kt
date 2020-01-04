@@ -1,6 +1,6 @@
-package com.kiliansteenman.beancounter.logging
+package com.kiliansteenman.beancounter.logger
 
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 
 interface LoggingAdapter<T> {
 

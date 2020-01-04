@@ -1,26 +1,19 @@
-package com.kiliansteenman.beancounter.internal
+package com.kiliansteenman.beancounter.logger
 
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogRepository
-import com.kiliansteenman.beancounter.internal.ui.BeanCounterNotification
-import com.kiliansteenman.beancounter.logging.LoggingAdapter
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogRepository
+import com.kiliansteenman.beancounter.logger.ui.BeanCounterNotification
+import com.kiliansteenman.beancounter.logging.BeanCounterLogger
 import kotlin.reflect.KClass
 
-interface AnalyticsLogger {
-
-    fun <T : Any> addMapping(type: KClass<T>, adapter: LoggingAdapter<T>)
-
-    fun <T : Any> log(event: T)
-}
-
-internal class DefaultAnalyticsLogger(
+class DefaultBeanCounterLogger(
     private val analyticsLogRepository: AnalyticsLogRepository,
     private val notification: BeanCounterNotification
-) : AnalyticsLogger {
+) : BeanCounterLogger {
 
     private val loggingTypeFactory =
         LoggingTypeFactory()
 
-    override fun <T : Any> addMapping(type: KClass<T>, adapter: LoggingAdapter<T>) {
+    fun <T : Any> addMapping(type: KClass<T>, adapter: LoggingAdapter<T>) {
         loggingTypeFactory.addMapping(type.qualifiedName!!, adapter)
     }
 

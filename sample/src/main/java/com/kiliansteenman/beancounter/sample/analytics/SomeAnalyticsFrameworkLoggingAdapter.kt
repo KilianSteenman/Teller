@@ -1,9 +1,10 @@
 package com.kiliansteenman.beancounter.sample.analytics
 
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
-import com.kiliansteenman.beancounter.logging.LoggingAdapter
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.LoggingAdapter
 
-class SomeAnalyticsFrameworkLoggingAdapter : LoggingAdapter<SomeAnalyticsFrameworkEvent> {
+class SomeAnalyticsFrameworkLoggingAdapter :
+    LoggingAdapter<SomeAnalyticsFrameworkEvent> {
 
     override fun getTitle(event: SomeAnalyticsFrameworkEvent): String =
         "Some analytics framework event"

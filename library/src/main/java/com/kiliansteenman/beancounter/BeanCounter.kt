@@ -1,13 +1,13 @@
 package com.kiliansteenman.beancounter
 
-import com.kiliansteenman.beancounter.internal.AnalyticsLogger
+import com.kiliansteenman.beancounter.logging.BeanCounterLogger
 import kotlin.reflect.KClass
 
 class BeanCounter {
 
     private val typeFactory = TypeFactory()
 
-    var logger: AnalyticsLogger? = null
+    var logger: BeanCounterLogger? = null
 
     fun <T : Any> addAdapter(adapter: AnalyticsAdapter<T>, type: KClass<T>) {
         val className =

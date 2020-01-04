@@ -1,9 +1,8 @@
-package com.kiliansteenman.beancounter.internal
+package com.kiliansteenman.beancounter.logger
 
 import android.util.Log
-import com.kiliansteenman.beancounter.logging.LoggingAdapter
 
-class LoggingTypeFactory {
+internal class LoggingTypeFactory {
 
     private val mapping: MutableMap<String, LoggingAdapter<*>> = mutableMapOf()
 

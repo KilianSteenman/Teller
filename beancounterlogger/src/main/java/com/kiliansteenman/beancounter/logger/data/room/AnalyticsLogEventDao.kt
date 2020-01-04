@@ -1,11 +1,11 @@
-package com.kiliansteenman.beancounter.internal.data.room
+package com.kiliansteenman.beancounter.logger.data.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 
 @Dao
 interface AnalyticsLogEventDao {

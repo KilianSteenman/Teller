@@ -1,10 +1,10 @@
-package com.kiliansteenman.beancounter.internal.data.room
+package com.kiliansteenman.beancounter.logger.data.room
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogRepository
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogRepository
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 

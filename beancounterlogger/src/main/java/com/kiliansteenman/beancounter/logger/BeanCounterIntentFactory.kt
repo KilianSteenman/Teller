@@ -1,8 +1,8 @@
-package com.kiliansteenman.beancounter.logging
+package com.kiliansteenman.beancounter.logger
 
 import android.content.Context
 import android.content.Intent
-import com.kiliansteenman.beancounter.internal.ui.BeanCounterActivity
+import com.kiliansteenman.beancounter.logger.ui.BeanCounterActivity
 
 object BeanCounterIntentFactory {
 

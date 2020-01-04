@@ -1,4 +1,4 @@
-include ':library',
+include ':library', ':beancounterlogger',
         ':sample'
 
 rootProject.name = 'beancounter'

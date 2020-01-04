@@ -1,4 +1,4 @@
-package com.kiliansteenman.beancounter.internal.data
+package com.kiliansteenman.beancounter.logger.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

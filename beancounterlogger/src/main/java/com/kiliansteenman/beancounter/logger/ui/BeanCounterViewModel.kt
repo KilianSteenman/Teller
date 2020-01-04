@@ -1,11 +1,11 @@
-package com.kiliansteenman.beancounter.internal.ui
+package com.kiliansteenman.beancounter.logger.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogRepository
-import com.kiliansteenman.beancounter.internal.data.room.RoomAnalyticsLogRepository
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogRepository
+import com.kiliansteenman.beancounter.logger.data.room.RoomAnalyticsLogRepository
 
 class BeanCounterViewModel(application: Application) : AndroidViewModel(application) {
 

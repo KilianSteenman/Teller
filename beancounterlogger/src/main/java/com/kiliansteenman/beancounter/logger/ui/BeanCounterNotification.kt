@@ -1,4 +1,4 @@
-package com.kiliansteenman.beancounter.internal.ui
+package com.kiliansteenman.beancounter.logger.ui
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,8 +7,8 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.kiliansteenman.beancounter.logging.BeanCounterIntentFactory
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.BeanCounterIntentFactory
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 
 class BeanCounterNotification(
     private val context: Context

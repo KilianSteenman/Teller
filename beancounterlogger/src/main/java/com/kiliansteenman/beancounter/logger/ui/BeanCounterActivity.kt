@@ -1,4 +1,4 @@
-package com.kiliansteenman.beancounter.internal.ui
+package com.kiliansteenman.beancounter.logger.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.beancounter.R
-import com.kiliansteenman.beancounter.internal.ui.detail.DetailActivity
+import com.kiliansteenman.beancounter.logger.ui.detail.DetailActivity
 
 class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {
 

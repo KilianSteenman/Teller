@@ -1,4 +1,4 @@
-package com.kiliansteenman.beancounter.internal.ui
+package com.kiliansteenman.beancounter.logger.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.beancounter.R
-import com.kiliansteenman.beancounter.internal.data.AnalyticsLogEvent
+import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class BeanCounterAdapter(
     private val onItemClickListener: (AnalyticsLogEvent) -> Unit
