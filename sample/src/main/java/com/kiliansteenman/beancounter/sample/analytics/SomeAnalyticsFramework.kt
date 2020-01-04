@@ -1,9 +1,11 @@
 package com.kiliansteenman.beancounter.sample.analytics
 
+import android.util.Log
+
 class SomeAnalyticsFramework {
 
     fun sendEvent(event: SomeAnalyticsFrameworkEvent) {
-        // Send the event
+        Log.v("SomeAnalyticsFramework", "Sending event ${event.name}")
     }
 }
 

@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             )
         }
 
+        findViewById<Button>(R.id.main_send_not_registered_event).setOnClickListener {
+            beanCounter.count(NotRegisteredEvent("Crash!", "data"))
+        }
+
         findViewById<Button>(R.id.main_open_log).setOnClickListener {
             beanCounter.count(
                 SomeAnalyticsFrameworkEvent("click", mapOf("button_press" to "open_log"))
@@ -35,7 +39,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val analyticsFramework = SomeAnalyticsFramework()
         beanCounter = BeanCounter().apply {
             logger = LoggerProvider.createAnalyticsLogger(applicationContext)
-            addAdapter(SomeAnalyticsFrameworkAdapter(analyticsFramework))
+            addAdapter(
+                SomeAnalyticsFrameworkAdapter(analyticsFramework),
+                SomeAnalyticsFrameworkEvent::class
+            )
             addLoggingAdapter(SomeAnalyticsFrameworkLoggingAdapter())
         }
     }
