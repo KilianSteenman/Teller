@@ -13,6 +13,10 @@ class DefaultBeanCounterLogger(
     private val loggingTypeFactory =
         LoggingTypeFactory()
 
+    inline fun <reified T: Any> addMapping(adapter: LoggingAdapter<T>) {
+        addMapping(T::class, adapter)
+    }
+
     fun <T : Any> addMapping(type: KClass<T>, adapter: LoggingAdapter<T>) {
         loggingTypeFactory.addMapping(type.qualifiedName!!, adapter)
     }
