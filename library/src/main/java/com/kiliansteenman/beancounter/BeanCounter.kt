@@ -22,8 +22,7 @@ class BeanCounter {
     }
 
     private fun <T : Any> performCount(event: T) {
-        val adapter =
-            typeFactory.getAdapterForType(event::class.qualifiedName) as? AnalyticsAdapter<T>
+        val adapter = typeFactory.getAdapterForType<T>(event::class.qualifiedName)
         if (adapter != null) {
             adapter.count(event)
         } else {

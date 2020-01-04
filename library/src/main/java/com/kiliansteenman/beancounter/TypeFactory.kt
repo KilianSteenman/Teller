@@ -8,7 +8,7 @@ internal class TypeFactory {
         mapping[name] = adapter
     }
 
-    fun getAdapterForType(name: String?): AnalyticsAdapter<*>? {
-        return mapping[name]
+    fun <T : Any> getAdapterForType(name: String?): AnalyticsAdapter<T>? {
+        return mapping[name] as? AnalyticsAdapter<T>
     }
 }
