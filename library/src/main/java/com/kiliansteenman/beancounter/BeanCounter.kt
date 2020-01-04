@@ -1,7 +1,6 @@
 package com.kiliansteenman.beancounter
 
 import com.kiliansteenman.beancounter.internal.AnalyticsLogger
-import com.kiliansteenman.beancounter.logging.LoggingAdapter
 import kotlin.reflect.KClass
 
 class BeanCounter {
@@ -10,21 +9,29 @@ class BeanCounter {
 
     var logger: AnalyticsLogger? = null
 
-    fun <T : Any> addAdapter(adapter: AnalyticsAdapter<T>, clazz: KClass<T>) {
-        typeFactory.addMapping(clazz.simpleName!!, adapter)
-    }
+    fun <T : Any> addAdapter(adapter: AnalyticsAdapter<T>, type: KClass<T>) {
+        val className =
+            type.qualifiedName ?: throw IllegalArgumentException("Type requires a valid class name")
 
-    inline fun <reified T> addLoggingAdapter(adapter: LoggingAdapter<T>) {
-        logger?.addMapping(T::class.java, adapter)
+        typeFactory.addMapping(className, adapter)
     }
 
     fun <T : Any> count(event: T) {
-        val adapter = typeFactory.getAdapterForType(event::class.simpleName) as? AnalyticsAdapter<T>
+        performCount(event)
+        performLogging(event)
+    }
+
+    private fun <T : Any> performCount(event: T) {
+        val adapter =
+            typeFactory.getAdapterForType(event::class.qualifiedName) as? AnalyticsAdapter<T>
         if (adapter != null) {
             adapter.count(event)
         } else {
-            throw IllegalStateException("No adapter registered for type ${event::class.simpleName}")
+            throw IllegalStateException("No adapter registered for type ${event::class.qualifiedName}")
         }
-//        logger?.log(event)
+    }
+
+    private fun <T : Any> performLogging(event: T) {
+        logger?.log(event)
     }
 }

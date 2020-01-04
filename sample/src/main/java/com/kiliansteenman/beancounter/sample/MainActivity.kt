@@ -37,13 +37,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         val analyticsFramework = SomeAnalyticsFramework()
+
+        val loggerAdapter = LoggerProvider.createAnalyticsLogger(applicationContext).apply {
+            addMapping(SomeAnalyticsFrameworkEvent::class, SomeAnalyticsFrameworkLoggingAdapter())
+        }
         beanCounter = BeanCounter().apply {
-            logger = LoggerProvider.createAnalyticsLogger(applicationContext)
+            logger = loggerAdapter
             addAdapter(
                 SomeAnalyticsFrameworkAdapter(analyticsFramework),
                 SomeAnalyticsFrameworkEvent::class
             )
-            addLoggingAdapter(SomeAnalyticsFrameworkLoggingAdapter())
         }
     }
 }

@@ -10,7 +10,7 @@ import com.kiliansteenman.beancounter.internal.ui.BeanCounterNotification
 object LoggerProvider {
 
     fun createAnalyticsLogger(context: Context): AnalyticsLogger =
-        AnalyticsLogger(
+        DefaultAnalyticsLogger(
             RoomAnalyticsLogRepository(context),
             BeanCounterNotification(context)
         )
