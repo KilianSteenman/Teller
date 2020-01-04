@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
-import com.kiliansteenman.beancounter.R
+import com.kiliansteenman.beancounter.logger.R
 import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 import com.kiliansteenman.beancounter.logger.data.room.BeanCounterDatabase
 import java.util.concurrent.Executors.newSingleThreadExecutor

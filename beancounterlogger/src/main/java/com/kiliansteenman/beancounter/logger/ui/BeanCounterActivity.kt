@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kiliansteenman.beancounter.R
+import com.kiliansteenman.beancounter.logger.R
 import com.kiliansteenman.beancounter.logger.ui.detail.DetailActivity
 
 class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {

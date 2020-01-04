@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kiliansteenman.beancounter.R
+import com.kiliansteenman.beancounter.logger.R
 import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 import java.text.SimpleDateFormat
 import java.util.*

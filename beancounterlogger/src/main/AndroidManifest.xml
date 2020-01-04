@@ -1,2 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kiliansteenman.beancounter.logger" />
+    package="com.kiliansteenman.beancounter.logger">
+
+    <application>
+
+        <activity
+            android:name=".ui.BeanCounterActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.kiliansteenman.beancounter.task"
+            android:theme="@style/BeanCounterTheme" />
+
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:theme="@style/BeanCounterTheme" />
+
+    </application>
+
+</manifest>

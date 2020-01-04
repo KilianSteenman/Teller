@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">Bean counter</string>
-
-    <string name="menu_beancounter_clear_all">Clear all logs</string>
-    <string name="menu_beancounter_filter">Filters</string>
-
 </resources>
