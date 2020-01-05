@@ -22,11 +22,11 @@
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/beancounter_item_type"
+            android:id="@+id/beancounter_framework"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            tools:text="Analytics" />
+            tools:text="Framework" />
 
     </LinearLayout>
 
