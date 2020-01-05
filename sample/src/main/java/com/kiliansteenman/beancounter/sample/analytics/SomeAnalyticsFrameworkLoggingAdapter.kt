@@ -6,11 +6,6 @@ import com.kiliansteenman.beancounter.logger.LoggingAdapter
 class SomeAnalyticsFrameworkLoggingAdapter :
     LoggingAdapter<SomeAnalyticsFrameworkEvent> {
 
-    override fun getTitle(event: SomeAnalyticsFrameworkEvent): String =
-        "Some analytics framework event"
-
-    override fun getContent(event: SomeAnalyticsFrameworkEvent): String = event.name
-
     override fun toLogEvent(event: SomeAnalyticsFrameworkEvent): AnalyticsLogEvent =
         AnalyticsLogEvent(
             framework = "SomeFramework",
