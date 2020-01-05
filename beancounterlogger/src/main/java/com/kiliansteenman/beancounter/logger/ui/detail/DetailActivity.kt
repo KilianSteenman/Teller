@@ -11,7 +11,7 @@ import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 import com.kiliansteenman.beancounter.logger.data.room.BeanCounterDatabase
 import java.util.concurrent.Executors.newSingleThreadExecutor
 
-class DetailActivity : AppCompatActivity(R.layout.beancounter_detail) {
+internal class DetailActivity : AppCompatActivity(R.layout.beancounter_detail) {
 
     private val logId: Long
         get() = intent.getLongExtra(PARAM_LOG_ID, -1)

@@ -10,7 +10,7 @@ import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BeanCounterAdapter(
+internal class BeanCounterAdapter(
     private val onItemClickListener: (AnalyticsLogEvent) -> Unit
 ) : RecyclerView.Adapter<BeanCounterAdapter.BeanCounterViewHolder>() {
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.beancounter.logger.R
 import com.kiliansteenman.beancounter.logger.ui.detail.DetailActivity
 
-class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {
+internal class BeanCounterActivity : AppCompatActivity(R.layout.beancounter) {
 
     private val viewModel: BeanCounterViewModel by lazy { ViewModelProviders.of(this)[BeanCounterViewModel::class.java] }
 
