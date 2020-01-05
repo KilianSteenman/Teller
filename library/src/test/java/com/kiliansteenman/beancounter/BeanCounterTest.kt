@@ -1,10 +1,17 @@
 package com.kiliansteenman.beancounter
 
+import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class BeanCounterTest {
+
+    @After
+    fun after() {
+        eventAdapter.isInvoked = false
+        otherEventAdapter.isInvoked = false
+    }
 
     @Test(expected = IllegalStateException::class)
     fun `when no adapter is registered for type, then invalid state exception is thrown`() {
@@ -33,11 +40,11 @@ class BeanCounterTest {
             addAdapter(eventAdapter)
         }
 
-        val event = Event("This an event name")
-        beanCounter.count(event)
+        val otherEvent = OtherEvent("Other event name")
+        beanCounter.count(otherEvent)
 
-        assertFalse(otherEventAdapter.isInvoked)
-        assertTrue(eventAdapter.isInvoked)
+        assertTrue(otherEventAdapter.isInvoked)
+        assertFalse(eventAdapter.isInvoked)
     }
 
     private fun createBeanCounter(): BeanCounter {
