@@ -16,7 +16,7 @@ internal class BeanCounterAdapter(
 
     var logs: List<AnalyticsLogEvent> = emptyList()
         set(value) {
-            field = value.reversed()
+            field = value
             notifyDataSetChanged()
         }
 

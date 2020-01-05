@@ -10,7 +10,6 @@ class SomeAnalyticsFrameworkLoggingAdapter :
         AnalyticsLogEvent(
             framework = "SomeFramework",
             type = "ScreenView",
-            logDate = System.currentTimeMillis(),
             title = event.name,
             content = event.params.map { entry -> "${entry.key}: ${entry.value}" }
                 .joinToString(separator = "\n")

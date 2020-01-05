@@ -10,7 +10,7 @@ import com.kiliansteenman.beancounter.logger.data.AnalyticsLogEvent
 @Dao
 interface AnalyticsLogEventDao {
 
-    @Query("SELECT * FROM analyticsLogEvent")
+    @Query("SELECT * FROM analyticsLogEvent ORDER BY logDate DESC")
     fun getAll(): LiveData<List<AnalyticsLogEvent>>
 
     @Insert
