@@ -1,17 +1,10 @@
 package com.kiliansteenman.beancounter
 
-import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class BeanCounterTest {
-
-    @After
-    fun after() {
-        eventAdapter.isInvoked = false
-        otherEventAdapter.isInvoked = false
-    }
 
     @Test(expected = IllegalStateException::class)
     fun `when no adapter is registered for type, then invalid state exception is thrown`() {
@@ -23,6 +16,7 @@ class BeanCounterTest {
 
     @Test
     fun `when adapter is registered for type, then adapter is used`() {
+        val eventAdapter = FakeAnalyticsAdapter<Event>()
         val beanCounter = createBeanCounter().apply {
             addAdapter(eventAdapter)
         }
@@ -35,6 +29,8 @@ class BeanCounterTest {
 
     @Test
     fun `when multiple adapters are registered for different types, the correct adapter is used`() {
+        val eventAdapter = FakeAnalyticsAdapter<Event>()
+        val otherEventAdapter = FakeAnalyticsAdapter<OtherEvent>()
         val beanCounter = createBeanCounter().apply {
             addAdapter(otherEventAdapter)
             addAdapter(eventAdapter)
@@ -50,26 +46,14 @@ class BeanCounterTest {
     private fun createBeanCounter(): BeanCounter {
         return BeanCounter()
     }
+}
 
-    companion object {
+internal open class FakeAnalyticsAdapter<T> : AnalyticsAdapter<T> {
 
-        private val eventAdapter = object : AnalyticsAdapter<Event> {
+    var isInvoked = false
 
-            var isInvoked = false
-
-            override fun count(event: Event) {
-                isInvoked = true
-            }
-        }
-
-        private val otherEventAdapter = object : AnalyticsAdapter<OtherEvent> {
-
-            var isInvoked = false
-
-            override fun count(event: OtherEvent) {
-                isInvoked = true
-            }
-        }
+    override fun count(event: T) {
+        isInvoked = true
     }
 }
 
