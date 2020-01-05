@@ -1,32 +1,43 @@
 package com.kiliansteenman.beancounter
 
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class BeanCounterTest {
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test(expected = IllegalStateException::class)
     fun `when no adapter is registered for type, then invalid state exception is thrown`() {
         val beanCounter = createBeanCounter()
 
         val event = Event("name")
-
         beanCounter.count(event)
     }
 
     @Test
     fun `when adapter is registered for type, then adapter is used`() {
-        val beanCounter = createBeanCounter()
-
-        beanCounter.addAdapter(eventAdapter)
-        beanCounter.addAdapter(omnitureEventAdapter)
+        val beanCounter = createBeanCounter().apply {
+            addAdapter(eventAdapter)
+        }
 
         val event = Event("This an event name")
-        val omnitureEvent = OmnitureEvent("Hello Omniture!")
-
         beanCounter.count(event)
-        beanCounter.count(omnitureEvent)
 
-//        verify(adapter).count(event)
+        assertTrue(eventAdapter.isInvoked)
+    }
+
+    @Test
+    fun `when multiple adapters are registered for different types, the correct adapter is used`() {
+        val beanCounter = createBeanCounter().apply {
+            addAdapter(otherEventAdapter)
+            addAdapter(eventAdapter)
+        }
+
+        val event = Event("This an event name")
+        beanCounter.count(event)
+
+        assertFalse(otherEventAdapter.isInvoked)
+        assertTrue(eventAdapter.isInvoked)
     }
 
     private fun createBeanCounter(): BeanCounter {
@@ -36,18 +47,24 @@ class BeanCounterTest {
     companion object {
 
         private val eventAdapter = object : AnalyticsAdapter<Event> {
+
+            var isInvoked = false
+
             override fun count(event: Event) {
-                println("Counting event: ${event.name}")
+                isInvoked = true
             }
         }
 
-        private val omnitureEventAdapter = object : AnalyticsAdapter<OmnitureEvent> {
-            override fun count(event: OmnitureEvent) {
-                println("Counting Omniture: ${event.name}")
+        private val otherEventAdapter = object : AnalyticsAdapter<OtherEvent> {
+
+            var isInvoked = false
+
+            override fun count(event: OtherEvent) {
+                isInvoked = true
             }
         }
     }
 }
 
 data class Event(val name: String)
-data class OmnitureEvent(val name: String)
+data class OtherEvent(val name: String)
