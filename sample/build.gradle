@@ -29,7 +29,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     implementation project(':library')
-    implementation project(':beancounterlogger')
+    implementation project(':tellerlogger')
 
     testImplementation 'junit:junit:4.12'
 }
