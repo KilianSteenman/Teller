@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/beancounter_recyclerview"
+        android:id="@+id/teller_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/beancounter_item" />
+        tools:listitem="@layout/teller_item" />
 
     <include layout="@layout/filters" />
 

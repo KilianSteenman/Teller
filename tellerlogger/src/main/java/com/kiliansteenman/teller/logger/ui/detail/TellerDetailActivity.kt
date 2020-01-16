@@ -11,7 +11,7 @@ import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.data.room.TellerLogDatabase
 import java.util.concurrent.Executors.newSingleThreadExecutor
 
-internal class TellerDetailActivity : AppCompatActivity(R.layout.beancounter_detail) {
+internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) {
 
     private val logId: Long
         get() = intent.getLongExtra(PARAM_LOG_ID, -1)

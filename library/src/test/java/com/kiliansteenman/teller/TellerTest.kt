@@ -8,21 +8,21 @@ class TellerTest {
 
     @Test(expected = IllegalStateException::class)
     fun `when no adapter is registered for type, then invalid state exception is thrown`() {
-        val beanCounter = createBeanCounter()
+        val teller = createTeller()
 
         val event = Event("name")
-        beanCounter.count(event)
+        teller.count(event)
     }
 
     @Test
     fun `when adapter is registered for type, then adapter is used`() {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
-        val beanCounter = createBeanCounter().apply {
+        val teller = createTeller().apply {
             addAdapter(eventAdapter)
         }
 
         val event = Event("This an event name")
-        beanCounter.count(event)
+        teller.count(event)
 
         assertTrue(eventAdapter.isInvoked)
     }
@@ -31,19 +31,19 @@ class TellerTest {
     fun `when multiple adapters are registered for different types, the correct adapter is used`() {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
         val otherEventAdapter = FakeAnalyticsAdapter<OtherEvent>()
-        val beanCounter = createBeanCounter().apply {
+        val teller = createTeller().apply {
             addAdapter(otherEventAdapter)
             addAdapter(eventAdapter)
         }
 
         val otherEvent = OtherEvent("Other event name")
-        beanCounter.count(otherEvent)
+        teller.count(otherEvent)
 
         assertTrue(otherEventAdapter.isInvoked)
         assertFalse(eventAdapter.isInvoked)
     }
 
-    private fun createBeanCounter(): Teller {
+    private fun createTeller(): Teller {
         return Teller()
     }
 }

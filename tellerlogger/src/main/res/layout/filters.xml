@@ -15,7 +15,7 @@
         android:text="Framework" />
 
     <Spinner
-        android:id="@+id/beancounter_filter_framework_spinner"
+        android:id="@+id/teller_filter_framework_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

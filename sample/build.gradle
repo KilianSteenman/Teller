@@ -9,7 +9,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        applicationId "com.kiliansteenman.beancounter.sample"
+        applicationId "com.kiliansteenman.teller.sample"
         versionCode 1
         versionName "1.0"
     }

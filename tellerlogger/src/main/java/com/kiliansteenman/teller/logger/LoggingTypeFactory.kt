@@ -14,7 +14,7 @@ internal class LoggingTypeFactory {
         return if (mapping.containsKey(type)) {
             mapping[type] as LoggingAdapter<T>
         } else {
-            Log.w("BeanCounter", "No logging adapter registered for $type")
+            Log.w("Teller", "No logging adapter registered for $type")
             null
         }
     }

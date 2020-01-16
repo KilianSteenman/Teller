@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.ui.detail.TellerDetailActivity
 
-internal class TellerLogActivity : AppCompatActivity(R.layout.beancounter) {
+internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
     private val viewModel: TellerLogViewModel by lazy { ViewModelProviders.of(this)[TellerLogViewModel::class.java] }
 
@@ -23,7 +23,7 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.beancounter) {
             startActivity(TellerDetailActivity.createIntent(this, logEvent.id))
         }
 
-        findViewById<RecyclerView>(R.id.beancounter_recyclerview).apply {
+        findViewById<RecyclerView>(R.id.teller_recyclerview).apply {
             this.adapter = adapter
             addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
         }

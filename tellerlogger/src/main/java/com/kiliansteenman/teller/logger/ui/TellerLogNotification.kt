@@ -15,7 +15,7 @@ class TellerLogNotification(
 ) {
 
     companion object {
-        private const val CHANNEL_ID = "BeanCounter"
+        private const val CHANNEL_ID = "Teller"
         private const val NOTIFICATION_ID = 7698
     }
 
@@ -25,7 +25,7 @@ class TellerLogNotification(
                 .createNotificationChannel(
                     NotificationChannel(
                         CHANNEL_ID,
-                        "BeanCounter",
+                        "Teller",
                         NotificationManager.IMPORTANCE_DEFAULT
                     )
                 )

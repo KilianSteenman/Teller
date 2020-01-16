@@ -7,7 +7,7 @@
             android:name="com.kiliansteenman.teller.logger.ui.TellerLogActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:taskAffinity="com.kiliansteenman.beancounter.task"
+            android:taskAffinity="com.kiliansteenman.teller.task"
             android:theme="@style/TellerTheme" />
 
         <activity
