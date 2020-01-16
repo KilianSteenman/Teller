@@ -1,2 +1,2 @@
-# Beancounter
+# Teller
 Android Analytics inspector
