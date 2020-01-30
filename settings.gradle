@@ -2,4 +2,4 @@ include ':library',
         ':tellerlogger',
         ':sample'
 
-rootProject.name = 'teller'
+rootProject.name = 'teller-parent'
