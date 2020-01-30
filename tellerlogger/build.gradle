@@ -38,7 +38,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    implementation project(':library')
+    implementation project(':teller')
 
     testImplementation 'junit:junit:4.12'
 
