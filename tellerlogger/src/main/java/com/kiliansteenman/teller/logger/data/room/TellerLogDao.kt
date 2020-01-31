@@ -10,7 +10,7 @@ import com.kiliansteenman.teller.logger.data.TellerLog
 @Dao
 interface TellerLogDao {
 
-    @Query("SELECT * FROM analyticsLogEvent ORDER BY logDate DESC")
+    @Query("SELECT * FROM tellerlog ORDER BY logDate DESC")
     fun getAll(): LiveData<List<TellerLog>>
 
     @Insert
@@ -19,12 +19,12 @@ interface TellerLogDao {
     @Delete
     fun delete(event: TellerLog)
 
-    @Query("SELECT * FROM analyticsLogEvent WHERE id=:logId")
+    @Query("SELECT * FROM tellerlog WHERE id=:logId")
     fun get(logId: Long): TellerLog
 
-    @Query("SELECT DISTINCT framework FROM analyticslogevent")
+    @Query("SELECT DISTINCT framework FROM tellerlog")
     fun getFrameWorks(): List<String>
 
-    @Query("DELETE FROM analyticslogevent")
+    @Query("DELETE FROM tellerlog")
     fun clearAll()
 }
