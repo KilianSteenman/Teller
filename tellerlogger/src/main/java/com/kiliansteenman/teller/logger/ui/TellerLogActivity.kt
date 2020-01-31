@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +14,7 @@ import com.kiliansteenman.teller.logger.ui.detail.TellerDetailActivity
 
 internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
-    private val viewModel: TellerLogViewModel by lazy { ViewModelProviders.of(this)[TellerLogViewModel::class.java] }
+    private val viewModel: TellerLogViewModel by lazy { ViewModelProvider(this).get(TellerLogViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
