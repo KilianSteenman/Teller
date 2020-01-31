@@ -1,12 +1,12 @@
 package com.kiliansteenman.teller.logger.data
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 interface TellerLogRepository {
 
     fun addLog(log: TellerLog)
 
-    fun getAll(): LiveData<List<TellerLog>>
+    fun getAll(): Flow<List<TellerLog>>
 
     fun clearLog()
 

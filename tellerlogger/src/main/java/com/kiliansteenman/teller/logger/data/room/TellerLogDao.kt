@@ -1,17 +1,17 @@
 package com.kiliansteenman.teller.logger.data.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.kiliansteenman.teller.logger.data.TellerLog
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TellerLogDao {
 
     @Query("SELECT * FROM tellerlog ORDER BY logDate DESC")
-    fun getAll(): LiveData<List<TellerLog>>
+    fun getAll(): Flow<List<TellerLog>>
 
     @Insert
     fun insertAll(vararg events: TellerLog)

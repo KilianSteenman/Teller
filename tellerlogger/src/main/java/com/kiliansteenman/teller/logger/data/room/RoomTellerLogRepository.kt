@@ -1,10 +1,10 @@
 package com.kiliansteenman.teller.logger.data.room
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.data.TellerLogRepository
+import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -26,7 +26,7 @@ class RoomTellerLogRepository(
         executor.execute { tellerLogDao.insertAll(log) }
     }
 
-    override fun getAll(): LiveData<List<TellerLog>> = tellerLogDao.getAll()
+    override fun getAll(): Flow<List<TellerLog>> = tellerLogDao.getAll()
 
     override fun clearLog() {
         executor.execute { tellerLogDao.clearAll() }
