@@ -1,5 +1,6 @@
 include ':teller',
         ':tellerlogger',
+        ':tellerlogger-noop',
         ':sample'
 
 rootProject.name = 'teller-parent'

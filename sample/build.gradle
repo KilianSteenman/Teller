@@ -29,7 +29,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     implementation project(':teller')
-    implementation project(':tellerlogger')
+
+    debugImplementation project(':tellerlogger')
+    releaseImplementation project(':tellerlogger-noop')
 
     testImplementation 'junit:junit:4.12'
 }
