@@ -1,8 +1,0 @@
-<resources>
-
-    <string name="app_name">Teller Log</string>
-
-    <string name="menu_teller_clear_all">Clear all logs</string>
-    <string name="menu_teller_filter">Filters</string>
-
-</resources>
