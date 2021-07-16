@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
+import androidx.collection.LongSparseArray
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.kiliansteenman.teller.logger.R
@@ -18,6 +19,18 @@ class TellerLogNotification(
     companion object {
         private const val CHANNEL_ID = "Teller"
         private const val NOTIFICATION_ID = 7698
+
+        private const val MAX_BUFFER_SIZE = 10
+
+        private val eventBuffer = LongSparseArray<TellerLog>()
+        private val eventIdsSet = HashSet<Long>()
+
+        fun clearBuffer() {
+            synchronized(eventBuffer) {
+                eventBuffer.clear()
+                eventIdsSet.clear()
+            }
+        }
     }
 
     init {
@@ -34,23 +47,54 @@ class TellerLogNotification(
     }
 
     fun show(log: TellerLog) {
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentIntent(
-                PendingIntent.getActivity(
-                    context,
-                    NOTIFICATION_ID,
-                    TellerLogIntentFactory.createIntent(context),
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            )
+        addToBuffer(log)
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentIntent(createContentIntent())
             .setLocalOnly(true)
             .setSmallIcon(R.drawable.ic_notification)
             .setAutoCancel(true)
-            .setStyle(NotificationCompat.InboxStyle())
             .setContentTitle("${log.type}: ${log.title}")
-            .setContentText(log.content)
-            .build()
 
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
+        val inboxStyle = NotificationCompat.InboxStyle()
+
+        synchronized(eventBuffer) {
+            for (i in eventBuffer.size() - 1 downTo 0) {
+                val bufferedEvent = eventBuffer.valueAt(i)
+                if (bufferedEvent != null && i < MAX_BUFFER_SIZE) {
+                    if (i == 0) {
+                        builder.setContentText(bufferedEvent.content)
+                    }
+                    inboxStyle.addLine(bufferedEvent.content)
+                }
+            }
+
+            builder.setStyle(inboxStyle)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                builder.setSubText(eventIdsSet.size.toString())
+            } else {
+                builder.setNumber(eventIdsSet.size)
+            }
+        }
+
+        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
     }
+
+    private fun addToBuffer(log: TellerLog) {
+        synchronized(eventBuffer) {
+            eventIdsSet.add(log.id)
+            eventBuffer.put(log.id, log)
+
+            if (eventBuffer.size() > MAX_BUFFER_SIZE) {
+                eventBuffer.removeAt(0)
+            }
+        }
+    }
+
+    private fun createContentIntent() = PendingIntent.getActivity(
+        context,
+        NOTIFICATION_ID,
+        TellerLogIntentFactory.createIntent(context),
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 }
