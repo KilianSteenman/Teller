@@ -30,7 +30,9 @@ class Teller {
         if (adapter != null) {
             adapter.count(event)
         } else {
-            throw IllegalStateException("No adapter registered for type ${event::class.qualifiedName}")
+            if (BuildConfig.DEBUG) {
+                throw IllegalStateException("No adapter registered for type ${event::class.qualifiedName}")
+            }
         }
     }
 
