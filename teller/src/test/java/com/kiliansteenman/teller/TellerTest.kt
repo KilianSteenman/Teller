@@ -6,14 +6,6 @@ import org.junit.Test
 
 class TellerTest {
 
-    @Test(expected = IllegalStateException::class)
-    fun `when no adapter is registered for type, then invalid state exception is thrown`() {
-        val teller = createTeller()
-
-        val event = Event("name")
-        teller.count(event)
-    }
-
     @Test
     fun `when adapter is registered for type, then adapter is used`() {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
