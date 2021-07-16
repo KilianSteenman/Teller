@@ -1,6 +1,6 @@
 package com.kiliansteenman.teller.sample
 
-data class NotRegisteredEvent(
+internal data class UnregisteredEvent(
     val name: String,
     val data: String
 )
