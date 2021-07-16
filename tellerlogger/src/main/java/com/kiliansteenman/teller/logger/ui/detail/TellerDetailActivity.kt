@@ -9,6 +9,7 @@ import androidx.room.Room
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.data.room.TellerLogDatabase
+import com.kiliansteenman.teller.logger.formatTimeStamp
 import java.util.concurrent.Executors.newSingleThreadExecutor
 
 internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) {
@@ -37,7 +38,7 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
 
     private fun onLogLoaded(log: TellerLog) {
         findViewById<TextView>(R.id.detail_title).text = log.title
-        findViewById<TextView>(R.id.detail_timestamp).text = log.logDate.toString()
+        findViewById<TextView>(R.id.detail_timestamp).text = log.logDate.formatTimeStamp()
         findViewById<TextView>(R.id.detail_type).text = log.type
         findViewById<TextView>(R.id.detail_content).text = log.content
     }
