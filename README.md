@@ -1,4 +1,5 @@
 # Teller
+![CI](https://github.com/KilianSteenman/Teller/workflows/android.yml/badge.svg?branch=master)
 [![JitPack](https://jitpack.io/v/KilianSteenman/Teller.svg)](https://jitpack.io/#KilianSteenman/Teller)
 
 Android analytics wrapper
