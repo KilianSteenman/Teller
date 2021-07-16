@@ -1,5 +1,6 @@
 package com.kiliansteenman.teller
 
+import android.util.Log
 import com.kiliansteenman.teller.logging.TellerLogger
 import kotlin.reflect.KClass
 
@@ -30,8 +31,11 @@ class Teller {
         if (adapter != null) {
             adapter.count(event)
         } else {
+            val exception = IllegalStateException("No adapter registered for type ${event::class.qualifiedName}")
             if (BuildConfig.DEBUG) {
-                throw IllegalStateException("No adapter registered for type ${event::class.qualifiedName}")
+                throw exception
+            } else {
+                Log.w(this.javaClass.simpleName, exception)
             }
         }
     }
