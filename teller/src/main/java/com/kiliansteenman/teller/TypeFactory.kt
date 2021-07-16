@@ -8,6 +8,7 @@ internal class TypeFactory {
         mapping[name] = adapter
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T : Any> getAdapterForType(name: String?): AnalyticsAdapter<T>? {
         return mapping[name] as? AnalyticsAdapter<T>
     }
