@@ -26,7 +26,7 @@ class TellerLogNotification(
                     NotificationChannel(
                         CHANNEL_ID,
                         "Teller",
-                        NotificationManager.IMPORTANCE_DEFAULT
+                        NotificationManager.IMPORTANCE_LOW
                     )
                 )
         }
