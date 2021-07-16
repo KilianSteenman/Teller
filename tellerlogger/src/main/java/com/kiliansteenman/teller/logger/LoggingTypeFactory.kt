@@ -10,6 +10,7 @@ internal class LoggingTypeFactory {
         mapping[type] = adapter
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> getAdapterForType(type: String?): LoggingAdapter<T>? {
         return if (mapping.containsKey(type)) {
             mapping[type] as LoggingAdapter<T>

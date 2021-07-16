@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Teller Sample</string>
+
+    <string name="send_event">Send event</string>
+    <string name="send_unregistered_event">Send unregistered event</string>
+    <string name="open_log">Open log</string>
 </resources>
