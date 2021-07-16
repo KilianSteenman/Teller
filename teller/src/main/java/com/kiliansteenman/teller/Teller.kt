@@ -21,6 +21,10 @@ class Teller private constructor() {
         typeFactory.addMapping(className, adapter)
     }
 
+    fun clearAdapters() {
+        typeFactory.clearMapping()
+    }
+
     fun <T : Any> count(event: T) {
         performCount(event)
         performLogging(event)

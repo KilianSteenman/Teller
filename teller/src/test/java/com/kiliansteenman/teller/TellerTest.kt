@@ -1,10 +1,12 @@
 package com.kiliansteenman.teller
 
+import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TellerTest {
+
     @After
     fun cleanup() {
         Teller.instance.clearAdapters()
