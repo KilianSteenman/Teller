@@ -35,7 +35,7 @@ class Teller {
             if (BuildConfig.DEBUG) {
                 throw exception
             } else {
-                Log.w(this.javaClass.simpleName, exception)
+                Log.w("Teller", exception)
             }
         }
     }
