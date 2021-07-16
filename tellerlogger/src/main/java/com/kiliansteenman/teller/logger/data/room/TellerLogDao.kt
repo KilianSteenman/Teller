@@ -14,7 +14,7 @@ interface TellerLogDao {
     fun getAll(): Flow<List<TellerLog>>
 
     @Insert
-    fun insertAll(vararg events: TellerLog)
+    suspend fun insert(event: TellerLog): Long
 
     @Delete
     fun delete(event: TellerLog)

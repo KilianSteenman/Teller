@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TellerLogRepository {
 
-    fun addLog(log: TellerLog)
+    suspend fun addLog(log: TellerLog): TellerLog
 
     fun getAll(): Flow<List<TellerLog>>
 

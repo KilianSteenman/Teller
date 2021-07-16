@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.data.TellerLogRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -22,8 +24,9 @@ class RoomTellerLogRepository(
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
 
-    override fun addLog(log: TellerLog) {
-        executor.execute { tellerLogDao.insertAll(log) }
+    override suspend fun addLog(log: TellerLog): TellerLog = withContext(Dispatchers.IO) {
+        val generatedId = tellerLogDao.insert(log)
+        tellerLogDao.get(generatedId)
     }
 
     override fun getAll(): Flow<List<TellerLog>> = tellerLogDao.getAll()

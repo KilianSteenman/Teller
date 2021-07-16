@@ -53,7 +53,7 @@ class TellerLogNotification(
             .setLocalOnly(true)
             .setSmallIcon(R.drawable.ic_notification)
             .setAutoCancel(true)
-            .setContentTitle("${log.type}: ${log.title}")
+            .setContentTitle("Telling analytics")
 
         val inboxStyle = NotificationCompat.InboxStyle()
 
@@ -62,9 +62,9 @@ class TellerLogNotification(
                 val bufferedEvent = eventBuffer.valueAt(i)
                 if (bufferedEvent != null && i < MAX_BUFFER_SIZE) {
                     if (i == 0) {
-                        builder.setContentText(bufferedEvent.content)
+                        builder.setContentText("${log.type}: ${log.title}")
                     }
-                    inboxStyle.addLine(bufferedEvent.content)
+                    inboxStyle.addLine("${log.type}: ${log.title}")
                 }
             }
 
