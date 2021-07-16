@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.logger.data.TellerLog
 
@@ -43,7 +44,7 @@ class TellerLogNotification(
                 )
             )
             .setLocalOnly(true)
-            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
+            .setSmallIcon(R.drawable.ic_notification)
             .setAutoCancel(true)
             .setStyle(NotificationCompat.InboxStyle())
             .setContentTitle("${log.type}: ${log.title}")
