@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val loggerAdapter = LoggerProvider.createAnalyticsLogger(applicationContext).apply {
             addMapping(SomeAnalyticsFrameworkLoggingAdapter())
         }
-        teller = Teller().apply {
+        teller = Teller.instance.apply {
             logger = loggerAdapter
             addAdapter(SomeAnalyticsFrameworkAdapter(analyticsFramework))
         }

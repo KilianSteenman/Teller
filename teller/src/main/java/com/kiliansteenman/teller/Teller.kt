@@ -4,7 +4,7 @@ import android.util.Log
 import com.kiliansteenman.teller.logging.TellerLogger
 import kotlin.reflect.KClass
 
-class Teller {
+class Teller private constructor() {
 
     private val typeFactory = TypeFactory()
 
@@ -42,5 +42,10 @@ class Teller {
 
     private fun <T : Any> performLogging(event: T) {
         logger?.log(event)
+    }
+
+    companion object {
+
+        val instance: Teller by lazy { Teller() }
     }
 }
