@@ -17,6 +17,7 @@ internal class TellerLogViewModel(application: Application) : AndroidViewModel(a
 
     fun onClearLogClicked(): Boolean {
         logRepository.clearLog()
+        TellerLogNotification.clearBuffer()
         return true
     }
 }

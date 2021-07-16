@@ -3,6 +3,8 @@ package com.kiliansteenman.teller.logger
 import com.kiliansteenman.teller.logger.data.TellerLogRepository
 import com.kiliansteenman.teller.logger.ui.TellerLogNotification
 import com.kiliansteenman.teller.logging.TellerLogger
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class DefaultTellerLogger(
@@ -10,10 +12,12 @@ class DefaultTellerLogger(
     private val notification: TellerLogNotification
 ) : TellerLogger {
 
+    private val scope = MainScope()
+
     private val loggingTypeFactory =
         LoggingTypeFactory()
 
-    inline fun <reified T: Any> addMapping(adapter: LoggingAdapter<T>) {
+    inline fun <reified T : Any> addMapping(adapter: LoggingAdapter<T>) {
         addMapping(T::class, adapter)
     }
 
@@ -25,8 +29,11 @@ class DefaultTellerLogger(
         val loggingAdapter = loggingTypeFactory.getAdapterForType<T>(event::class.qualifiedName)
         if (loggingAdapter != null) {
             val eventLog = loggingAdapter.toLogEvent(event)
-            tellerLogRepository.addLog(eventLog)
-            notification.show(eventLog)
+
+            scope.launch {
+                val insertedEvent = tellerLogRepository.addLog(eventLog)
+                notification.show(insertedEvent)
+            }
         }
     }
 }
