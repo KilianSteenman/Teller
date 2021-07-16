@@ -5,10 +5,12 @@ import kotlin.reflect.KClass
 
 class DefaultTellerLogger : TellerLogger {
 
+    @Suppress("Unused")
     inline fun <reified T : Any> addMapping(adapter: LoggingAdapter<T>) {
         // NOOP
     }
 
+    @Suppress("Unused")
     fun <T : Any> addMapping(type: KClass<T>, adapter: LoggingAdapter<T>) {
         // NOOP
     }
