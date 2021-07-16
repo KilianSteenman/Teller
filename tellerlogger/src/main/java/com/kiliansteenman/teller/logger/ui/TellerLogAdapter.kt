@@ -7,8 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.TellerLog
-import java.text.SimpleDateFormat
-import java.util.*
+import com.kiliansteenman.teller.logger.formatTimeStamp
 
 internal class TellerLogAdapter(
     private val onItemClickListener: (TellerLog) -> Unit
@@ -46,11 +45,6 @@ internal class TellerLogAdapter(
             timeStampTextView.text = log.logDate.formatTimeStamp()
 
             itemView.setOnClickListener { onItemClickListener.invoke(log) }
-        }
-
-        private fun Long.formatTimeStamp(): String {
-            val formatter = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-            return formatter.format(Date(this))
         }
     }
 }
