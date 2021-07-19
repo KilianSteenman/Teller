@@ -1,20 +1,26 @@
 package com.kiliansteenman.teller
 
+import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TellerTest {
 
+    @After
+    fun cleanup() {
+        Teller.instance.clearAdapters()
+    }
+
     @Test
     fun `when adapter is registered for type, then adapter is used`() {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
-        val teller = createTeller().apply {
+        Teller.instance.apply {
             addAdapter(eventAdapter)
         }
 
         val event = Event("This an event name")
-        teller.count(event)
+        Teller.instance.count(event)
 
         assertTrue(eventAdapter.isInvoked)
     }
@@ -23,20 +29,16 @@ class TellerTest {
     fun `when multiple adapters are registered for different types, the correct adapter is used`() {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
         val otherEventAdapter = FakeAnalyticsAdapter<OtherEvent>()
-        val teller = createTeller().apply {
+        Teller.instance.apply {
             addAdapter(otherEventAdapter)
             addAdapter(eventAdapter)
         }
 
         val otherEvent = OtherEvent("Other event name")
-        teller.count(otherEvent)
+        Teller.instance.count(otherEvent)
 
         assertTrue(otherEventAdapter.isInvoked)
         assertFalse(eventAdapter.isInvoked)
-    }
-
-    private fun createTeller(): Teller {
-        return Teller()
     }
 }
 

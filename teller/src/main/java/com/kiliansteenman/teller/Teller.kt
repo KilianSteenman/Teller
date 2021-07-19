@@ -4,7 +4,7 @@ import android.util.Log
 import com.kiliansteenman.teller.logging.TellerLogger
 import kotlin.reflect.KClass
 
-class Teller {
+class Teller private constructor() {
 
     private val typeFactory = TypeFactory()
 
@@ -19,6 +19,10 @@ class Teller {
             type.qualifiedName ?: throw IllegalArgumentException("Type requires a valid class name")
 
         typeFactory.addMapping(className, adapter)
+    }
+
+    fun clearAdapters() {
+        typeFactory.clearMapping()
     }
 
     fun <T : Any> count(event: T) {
@@ -42,5 +46,10 @@ class Teller {
 
     private fun <T : Any> performLogging(event: T) {
         logger?.log(event)
+    }
+
+    companion object {
+
+        val instance: Teller by lazy { Teller() }
     }
 }
