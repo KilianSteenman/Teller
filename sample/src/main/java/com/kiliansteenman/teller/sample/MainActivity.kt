@@ -5,9 +5,12 @@ import android.os.Bundle
 import com.kiliansteenman.teller.Teller
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.logger.LoggerProvider
-import com.kiliansteenman.teller.sample.adobe.AdobeAnalyticsAdapter
-import com.kiliansteenman.teller.sample.adobe.AdobeAnalyticsLoggingAdapter
-import com.kiliansteenman.teller.sample.adobe.AdobeEvent
+import com.kiliansteenman.teller.sample.adobe.AdobeAction
+import com.kiliansteenman.teller.sample.adobe.AdobeActionAnalyticsAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeStateAnalyticsAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeActionLoggingAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeState
+import com.kiliansteenman.teller.sample.adobe.AdobeStateLoggingAdapter
 import com.kiliansteenman.teller.sample.databinding.ActivityMainBinding
 import com.kiliansteenman.teller.sample.firebase.FirebaseAnalyticsAdapter
 import com.kiliansteenman.teller.sample.firebase.FirebaseAnalyticsLoggingAdapter
@@ -31,8 +34,12 @@ class MainActivity : AppCompatActivity() {
             teller.count(FirebaseEvent("click", mapOf("button_press" to "send_firebase_event")))
         }
 
-        binding.sendAdobeEventButton.setOnClickListener {
-            teller.count(AdobeEvent.Action("pageview", mapOf("button_press" to "send_adobe_event")))
+        binding.sendAdobeActionButton.setOnClickListener {
+            teller.count(AdobeAction("click", mapOf("button_press" to "send_adobe_event")))
+        }
+
+        binding.sendAdobeStateButton.setOnClickListener {
+            teller.count(AdobeState("pageview"))
         }
 
         binding.sendUnregisteredEventButton.setOnClickListener {
@@ -49,13 +56,15 @@ class MainActivity : AppCompatActivity() {
     private fun setupTeller() {
         val loggerAdapter = LoggerProvider.createAnalyticsLogger(applicationContext).apply {
             addMapping(FirebaseAnalyticsLoggingAdapter())
-            addMapping(AdobeAnalyticsLoggingAdapter())
+            addMapping(AdobeStateLoggingAdapter())
+            addMapping(AdobeActionLoggingAdapter())
         }
 
         teller = Teller.instance.apply {
             logger = loggerAdapter
             addAdapter(FirebaseAnalyticsAdapter())
-            addAdapter(AdobeAnalyticsAdapter())
+            addAdapter(AdobeStateAnalyticsAdapter())
+            addAdapter(AdobeActionAnalyticsAdapter())
         }
     }
 }
