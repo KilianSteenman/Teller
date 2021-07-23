@@ -2,48 +2,69 @@ package com.kiliansteenman.teller.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.kiliansteenman.teller.Teller
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.logger.LoggerProvider
-import com.kiliansteenman.teller.sample.analytics.SomeAnalyticsFramework
-import com.kiliansteenman.teller.sample.analytics.SomeAnalyticsFrameworkAdapter
-import com.kiliansteenman.teller.sample.analytics.SomeAnalyticsFrameworkEvent
-import com.kiliansteenman.teller.sample.analytics.SomeAnalyticsFrameworkLoggingAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeAction
+import com.kiliansteenman.teller.sample.adobe.AdobeActionAnalyticsAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeStateAnalyticsAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeActionLoggingAdapter
+import com.kiliansteenman.teller.sample.adobe.AdobeState
+import com.kiliansteenman.teller.sample.adobe.AdobeStateLoggingAdapter
+import com.kiliansteenman.teller.sample.databinding.ActivityMainBinding
+import com.kiliansteenman.teller.sample.firebase.FirebaseAnalyticsAdapter
+import com.kiliansteenman.teller.sample.firebase.FirebaseAnalyticsLoggingAdapter
+import com.kiliansteenman.teller.sample.firebase.FirebaseEvent
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var teller: Teller
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        bindButtons(binding)
 
-        findViewById<Button>(R.id.main_send_event).setOnClickListener {
-            teller.count(
-                SomeAnalyticsFrameworkEvent("click", mapOf("button_press" to "send_event"))
-            )
+        setupTeller()
+    }
+
+    private fun bindButtons(binding: ActivityMainBinding) {
+        binding.sendFirebaseEventButton.setOnClickListener {
+            teller.count(FirebaseEvent("click", mapOf("button_press" to "send_firebase_event")))
         }
 
-        findViewById<Button>(R.id.main_send_not_registered_event).setOnClickListener {
-            teller.count(NotRegisteredEvent("Crash!", "data"))
+        binding.sendAdobeActionButton.setOnClickListener {
+            teller.count(AdobeAction("click", mapOf("button_press" to "send_adobe_event")))
         }
 
-        findViewById<Button>(R.id.main_open_log).setOnClickListener {
-            teller.count(
-                SomeAnalyticsFrameworkEvent("click", mapOf("button_press" to "open_log"))
-            )
+        binding.sendAdobeStateButton.setOnClickListener {
+            teller.count(AdobeState("pageview"))
+        }
+
+        binding.sendUnregisteredEventButton.setOnClickListener {
+            teller.count(UnregisteredEvent("Crash!", "data"))
+        }
+
+        binding.openLogButton.setOnClickListener {
+            teller.count(FirebaseEvent("click", mapOf("button_press" to "open_log")))
 
             startActivity(TellerLogIntentFactory.createIntent(this@MainActivity))
         }
+    }
 
-        val analyticsFramework = SomeAnalyticsFramework()
-
+    private fun setupTeller() {
         val loggerAdapter = LoggerProvider.createAnalyticsLogger(applicationContext).apply {
-            addMapping(SomeAnalyticsFrameworkLoggingAdapter())
+            addMapping(FirebaseAnalyticsLoggingAdapter())
+            addMapping(AdobeStateLoggingAdapter())
+            addMapping(AdobeActionLoggingAdapter())
         }
+
         teller = Teller.instance.apply {
             logger = loggerAdapter
-            addAdapter(SomeAnalyticsFrameworkAdapter(analyticsFramework))
+            addAdapter(FirebaseAnalyticsAdapter())
+            addAdapter(AdobeStateAnalyticsAdapter())
+            addAdapter(AdobeActionAnalyticsAdapter())
         }
     }
 }

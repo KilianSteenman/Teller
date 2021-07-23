@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Teller Sample</string>
 
-    <string name="send_event">Send event</string>
-    <string name="send_unregistered_event">Send unregistered event</string>
+    <string name="send_firebase_event">Send Firebase event</string>
+    <string name="send_adobe_action">Send Adobe action</string>
+    <string name="send_adobe_state">Send Adobe state</string>
+    <string name="send_unregistered_event">Crash by sending unregistered event</string>
     <string name="open_log">Open log</string>
 </resources>

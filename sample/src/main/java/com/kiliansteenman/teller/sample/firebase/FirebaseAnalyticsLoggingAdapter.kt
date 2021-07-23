@@ -1,14 +1,13 @@
-package com.kiliansteenman.teller.sample.analytics
+package com.kiliansteenman.teller.sample.firebase
 
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.LoggingAdapter
 
-class SomeAnalyticsFrameworkLoggingAdapter :
-    LoggingAdapter<SomeAnalyticsFrameworkEvent> {
+internal class FirebaseAnalyticsLoggingAdapter : LoggingAdapter<FirebaseEvent> {
 
-    override fun toLogEvent(event: SomeAnalyticsFrameworkEvent): TellerLog =
+    override fun toLogEvent(event: FirebaseEvent): TellerLog =
         TellerLog(
-            framework = "SomeFramework",
+            framework = "Google Analytics",
             type = "ScreenView",
             title = event.name,
             content = event.params.map { entry -> "${entry.key}: ${entry.value}" }

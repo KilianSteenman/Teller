@@ -18,19 +18,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/main_send_event"
+        android:id="@+id/send_firebase_event_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/send_event" />
+        android:text="@string/send_firebase_event" />
 
     <Button
-        android:id="@+id/main_send_not_registered_event"
+        android:id="@+id/send_adobe_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_adobe_action" />
+
+    <Button
+        android:id="@+id/send_adobe_state_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_adobe_state" />
+
+    <Button
+        android:id="@+id/send_unregistered_event_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send_unregistered_event" />
 
     <Button
-        android:id="@+id/main_open_log"
+        android:id="@+id/open_log_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/open_log" />
