@@ -1,15 +1,15 @@
 package com.kiliansteenman.teller.sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.kiliansteenman.teller.Teller
-import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.logger.LoggerProvider
+import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.sample.adobe.AdobeAction
 import com.kiliansteenman.teller.sample.adobe.AdobeActionAnalyticsAdapter
-import com.kiliansteenman.teller.sample.adobe.AdobeStateAnalyticsAdapter
 import com.kiliansteenman.teller.sample.adobe.AdobeActionLoggingAdapter
 import com.kiliansteenman.teller.sample.adobe.AdobeState
+import com.kiliansteenman.teller.sample.adobe.AdobeStateAnalyticsAdapter
 import com.kiliansteenman.teller.sample.adobe.AdobeStateLoggingAdapter
 import com.kiliansteenman.teller.sample.databinding.ActivityMainBinding
 import com.kiliansteenman.teller.sample.firebase.FirebaseAnalyticsAdapter
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.sendAdobeStateButton.setOnClickListener {
-            teller.count(AdobeState("pageview"))
+            teller.count(AdobeState("MainActivity"))
         }
 
         binding.sendUnregisteredEventButton.setOnClickListener {
