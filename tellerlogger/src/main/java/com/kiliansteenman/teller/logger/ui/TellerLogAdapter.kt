@@ -34,12 +34,14 @@ internal class TellerLogAdapter(
     inner class TellerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val frameworkTextView: TextView = itemView.findViewById(R.id.teller_framework)
+        private val logTypeTextView: TextView = itemView.findViewById(R.id.teller_log_type)
         private val titleTextView: TextView = itemView.findViewById(R.id.teller_item_title)
         private val contentTextView: TextView = itemView.findViewById(R.id.teller_item_content)
         private val timeStampTextView: TextView = itemView.findViewById(R.id.teller_item_timestamp)
 
         fun bind(log: TellerLog) {
             frameworkTextView.text = log.framework
+            logTypeTextView.text = log.type
             titleTextView.text = log.title
             contentTextView.text = log.content
             timeStampTextView.text = log.logDate.formatTimeStamp()
