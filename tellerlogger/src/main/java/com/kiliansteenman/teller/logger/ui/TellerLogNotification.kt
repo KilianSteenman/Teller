@@ -31,6 +31,8 @@ class TellerLogNotification(
                 eventIdsSet.clear()
             }
         }
+
+        private fun TellerLog.formatAsNotification() = "$framework - ${this.type}: $title"
     }
 
     init {
@@ -62,9 +64,9 @@ class TellerLogNotification(
                 val bufferedEvent = eventBuffer.valueAt(i)
                 if (bufferedEvent != null && i < MAX_BUFFER_SIZE) {
                     if (i == 0) {
-                        builder.setContentText("${log.type}: ${log.title}")
+                        builder.setContentText(log.formatAsNotification())
                     }
-                    inboxStyle.addLine("${log.type}: ${log.title}")
+                    inboxStyle.addLine(log.formatAsNotification())
                 }
             }
 
