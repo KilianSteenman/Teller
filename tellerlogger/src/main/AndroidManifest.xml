@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kiliansteenman.teller.logger">
 
-    <application android:supportsRtl="true">
+    <application>
 
         <activity
             android:name="com.kiliansteenman.teller.logger.ui.TellerLogActivity"
