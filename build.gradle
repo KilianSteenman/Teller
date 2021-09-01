@@ -12,14 +12,24 @@ buildscript {
     }
 }
 
-plugins {
-    id 'maven-publish'
-}
-
 allprojects {
     repositories {
         google()
         mavenCentral()
+    }
+
+    plugins.withId('com.android.library') {
+        project.apply plugin: 'maven-publish'
+
+        afterEvaluate { project ->
+            publishing {
+                publications {
+                    release(MavenPublication) {
+                        from components.release
+                    }
+                }
+            }
+        }
     }
 }
 
