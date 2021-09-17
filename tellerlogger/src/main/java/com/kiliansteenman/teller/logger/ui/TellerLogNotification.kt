@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.logger.data.TellerLog
+import com.kiliansteenman.teller.logger.ui.TellerLogNotification.Companion.formatAsNotification
 
 class TellerLogNotification(
     private val context: Context
@@ -56,6 +57,7 @@ class TellerLogNotification(
             .setSmallIcon(R.drawable.ic_notification)
             .setAutoCancel(true)
             .setContentTitle("Telling analytics")
+            .setContentText(log.formatAsNotification())
 
         val inboxStyle = NotificationCompat.InboxStyle()
 
@@ -63,10 +65,7 @@ class TellerLogNotification(
             for (i in eventBuffer.size() - 1 downTo 0) {
                 val bufferedEvent = eventBuffer.valueAt(i)
                 if (bufferedEvent != null && i < MAX_BUFFER_SIZE) {
-                    if (i == 0) {
-                        builder.setContentText(log.formatAsNotification())
-                    }
-                    inboxStyle.addLine(log.formatAsNotification())
+                    inboxStyle.addLine(bufferedEvent.formatAsNotification())
                 }
             }
 
