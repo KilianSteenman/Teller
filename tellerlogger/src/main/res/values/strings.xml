@@ -1,6 +1,8 @@
 <resources>
 
-    <string name="app_name">Teller Log</string>
+    <string name="teller_log_app_name">Teller</string>
+    <!-- This should be overridden by implementing app -->
+    <string name="app_name">Teller</string>
 
     <string name="menu_teller_clear_all">Clear all logs</string>
     <string name="menu_teller_filter">Filters</string>

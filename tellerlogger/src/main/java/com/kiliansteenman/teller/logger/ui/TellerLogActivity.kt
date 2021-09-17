@@ -1,10 +1,9 @@
 package com.kiliansteenman.teller.logger.ui
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,9 @@ import com.kiliansteenman.teller.logger.ui.detail.TellerDetailActivity
 
 internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
-    private val viewModel: TellerLogViewModel by lazy { ViewModelProvider(this).get(TellerLogViewModel::class.java) }
+    private val viewModel: TellerLogViewModel by lazy {
+        ViewModelProvider(this).get(TellerLogViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,19 +29,19 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
             addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager.VERTICAL))
         }
 
-        viewModel.logEvents.observe(this, Observer { events -> adapter.logs = events })
+        findViewById<Toolbar>(R.id.teller_toolbar).apply {
+            inflateMenu(R.menu.teller_log)
+            setOnMenuItemClickListener { onMenuItemClick(it) }
+        }
+
+        viewModel.logEvents.observe(this) { events -> adapter.logs = events }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.teller_log, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    private fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_teller_log_clear_all -> viewModel.onClearLogClicked()
             R.id.menu_teller_log_filter -> openFilters()
-            else -> super.onOptionsItemSelected(item)
+            else -> false
         }
     }
 
