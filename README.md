@@ -19,9 +19,9 @@ repositories {
 
 ```groovy
 dependencies {
-    implementation "com.github.KilianSteenman.Teller:teller:0.1.1"
-    debugImplementation "com.github.KilianSteenman.Teller:tellerlogger:0.1.1"
-    releaseImplementation "com.github.KilianSteenman.Teller:tellerlogger-noop:0.1.1"
+    implementation "com.github.KilianSteenman.Teller:teller:<latest version>"
+    debugImplementation "com.github.KilianSteenman.Teller:tellerlogger:<latest version>"
+    releaseImplementation "com.github.KilianSteenman.Teller:tellerlogger-noop:<latest version>"
 }
 ```
 
