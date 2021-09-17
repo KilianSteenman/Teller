@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="TellerTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
+    <style name="TellerTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/tellerColorPrimary</item>
+        <item name="colorPrimaryDark">@color/tellerColorPrimaryDark</item>
+
+        <item name="toolbarStyle">@style/Widget.Teller.Toolbar</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.Teller.Toolbar.Navigation</item>
+        <item name="actionOverflowButtonStyle">@style/Widget.Teller.Toolbar.Overflow</item>
+    </style>
+
+    <style name="Widget.Teller.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/tellerColorPrimary</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+        <item name="titleTextColor">@color/tellerColorOnPrimary</item>
+        <item name="subtitleTextColor">@color/tellerColorOnPrimary</item>
+    </style>
+
+    <style name="Widget.Teller.Toolbar.Navigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:tint">@color/tellerColorOnPrimary</item>
+    </style>
+
+    <style name="Widget.Teller.Toolbar.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/tellerColorOnPrimary</item>
+    </style>
 
 </resources>

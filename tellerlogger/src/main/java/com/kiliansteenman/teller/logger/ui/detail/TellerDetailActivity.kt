@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.room.Room
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.TellerLog
@@ -27,6 +28,8 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        findViewById<Toolbar>(R.id.detail_toolbar).setNavigationOnClickListener { onBackPressed() }
 
         newSingleThreadExecutor().execute {
             val log = db.tellerLogDao().get(logId)
