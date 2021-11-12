@@ -96,6 +96,13 @@ class TellerLogNotification(
         context,
         NOTIFICATION_ID,
         TellerLogIntentFactory.createIntent(context),
-        PendingIntent.FLAG_UPDATE_CURRENT
+        getIntentFlags(),
     )
+
+    private fun getIntentFlags() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
 }
