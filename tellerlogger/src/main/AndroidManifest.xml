@@ -16,6 +16,15 @@
             android:exported="false"
             android:theme="@style/TellerTheme" />
 
+        <receiver
+            android:name="com.kiliansteenman.teller.logger.ClearLogActionBroadcastReceiver"
+            android:exported="false" />
+
+        <service
+            android:name="com.kiliansteenman.teller.logger.service.ClearLogService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@
     <!-- This should be overridden by implementing app -->
     <string name="app_name">Teller</string>
 
+    <string name="notification_action_clear">Clear</string>
+
     <string name="menu_teller_clear_all">Clear all logs</string>
     <string name="menu_teller_filter">Filters</string>
 
