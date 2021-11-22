@@ -40,6 +40,13 @@ class TellerLogNotification(
 
     private val notificationManager = NotificationManagerCompat.from(context)
 
+    private val immutableFlag: Int
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE
+        } else {
+            0
+        }
+
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(
@@ -104,7 +111,7 @@ class TellerLogNotification(
         context,
         NOTIFICATION_ID,
         TellerLogIntentFactory.createIntent(context),
-        PendingIntent.FLAG_UPDATE_CURRENT or immutableFlag(),
+        PendingIntent.FLAG_UPDATE_CURRENT or immutableFlag,
     )
 
     private fun createClearAction(): NotificationCompat.Action {
@@ -113,18 +120,12 @@ class TellerLogNotification(
             context,
             CLEAR_INTENT_REQUEST_CODE,
             clearLogBroadcastIntent,
-            PendingIntent.FLAG_ONE_SHOT or immutableFlag()
+            PendingIntent.FLAG_ONE_SHOT or immutableFlag
         )
         return NotificationCompat.Action(
             R.drawable.ic_delete_white,
             context.getString(R.string.notification_action_clear),
             pendingBroadcastIntent
         )
-    }
-
-    private fun immutableFlag() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        PendingIntent.FLAG_IMMUTABLE
-    } else {
-        0
     }
 }
