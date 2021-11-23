@@ -1,6 +1,6 @@
 ext {
-    version_code = 4
-    version_name = '0.1.5'
+    version_code = 5
+    version_name = '0.1.6'
 
     kotlin_version = '1.5.31'
 

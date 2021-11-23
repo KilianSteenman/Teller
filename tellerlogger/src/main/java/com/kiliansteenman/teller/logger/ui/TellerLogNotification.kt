@@ -4,14 +4,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.collection.LongSparseArray
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.kiliansteenman.teller.logger.ClearLogActionBroadcastReceiver
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.logger.data.TellerLog
-import com.kiliansteenman.teller.logger.ui.TellerLogNotification.Companion.formatAsNotification
 
 class TellerLogNotification(
     private val context: Context
@@ -22,6 +23,7 @@ class TellerLogNotification(
         private const val NOTIFICATION_ID = 7698
 
         private const val MAX_BUFFER_SIZE = 10
+        private const val CLEAR_INTENT_REQUEST_CODE = 11
 
         private val eventBuffer = LongSparseArray<TellerLog>()
         private val eventIdsSet = HashSet<Long>()
@@ -36,16 +38,24 @@ class TellerLogNotification(
         private fun TellerLog.formatAsNotification() = "$framework - ${this.type}: $title"
     }
 
+    private val notificationManager = NotificationManagerCompat.from(context)
+
+    private val immutableFlag: Int
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE
+        } else {
+            0
+        }
+
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManagerCompat.from(context)
-                .createNotificationChannel(
-                    NotificationChannel(
-                        CHANNEL_ID,
-                        "Teller",
-                        NotificationManager.IMPORTANCE_LOW
-                    )
+            notificationManager.createNotificationChannel(
+                NotificationChannel(
+                    CHANNEL_ID,
+                    "Teller",
+                    NotificationManager.IMPORTANCE_LOW
                 )
+            )
         }
     }
 
@@ -58,6 +68,7 @@ class TellerLogNotification(
             .setAutoCancel(true)
             .setContentTitle("Telling analytics")
             .setContentText(log.formatAsNotification())
+            .addAction(createClearAction())
 
         val inboxStyle = NotificationCompat.InboxStyle()
 
@@ -78,7 +89,11 @@ class TellerLogNotification(
             }
         }
 
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
+    }
+
+    fun dismissNotifications() {
+        notificationManager.cancel(NOTIFICATION_ID)
     }
 
     private fun addToBuffer(log: TellerLog) {
@@ -96,13 +111,21 @@ class TellerLogNotification(
         context,
         NOTIFICATION_ID,
         TellerLogIntentFactory.createIntent(context),
-        getIntentFlags(),
+        PendingIntent.FLAG_UPDATE_CURRENT or immutableFlag,
     )
 
-    private fun getIntentFlags() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
+    private fun createClearAction(): NotificationCompat.Action {
+        val clearLogBroadcastIntent = Intent(context, ClearLogActionBroadcastReceiver::class.java)
+        val pendingBroadcastIntent = PendingIntent.getBroadcast(
+            context,
+            CLEAR_INTENT_REQUEST_CODE,
+            clearLogBroadcastIntent,
+            PendingIntent.FLAG_ONE_SHOT or immutableFlag
+        )
+        return NotificationCompat.Action(
+            R.drawable.ic_delete_white,
+            context.getString(R.string.notification_action_clear),
+            pendingBroadcastIntent
+        )
+    }
 }
