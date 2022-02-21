@@ -9,6 +9,10 @@
     <string name="menu_teller_clear_all">Clear all logs</string>
     <string name="menu_teller_filter">Filters</string>
 
+    <string name="menu_teller_share_log">Share</string>
+    <string name="share_teller_log_title">Share Teller Log</string>
+    <string name="share_teller_log_subject">Teller Log</string>
+
     <string name="filters_framework_title">Frameworks</string>
 
 </resources>

@@ -9,7 +9,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.data.room.TellerLogDatabase
+import com.kiliansteenman.teller.logger.share.toSharableContent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 internal class TellerDetailViewModel(
@@ -28,6 +31,9 @@ internal class TellerDetailViewModel(
     private val logId = savedStateHandle.get<Long>(PARAM_LOG_ID)
         ?: throw IllegalArgumentException("Log id argument should not be null")
 
+    private val _events = MutableSharedFlow<TellerEvent>(0, extraBufferCapacity = Integer.MAX_VALUE)
+    val events: Flow<TellerEvent> = _events
+
     private val _logEvent = MutableLiveData<TellerLog>()
     val logEvent: LiveData<TellerLog> = _logEvent
 
@@ -35,6 +41,14 @@ internal class TellerDetailViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             val log = db.tellerLogDao().get(logId)
             _logEvent.postValue(log)
+        }
+    }
+
+    fun onShareLogClicked() {
+        viewModelScope.launch(Dispatchers.Default) {
+            _logEvent.value?.let { log ->
+                _events.tryEmit(TellerEvent.ShareLog(log.toSharableContent()))
+            }
         }
     }
 
