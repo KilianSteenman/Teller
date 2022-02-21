@@ -6,37 +6,30 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.room.Room
+import androidx.lifecycle.ViewModelProvider
 import com.kiliansteenman.teller.logger.R
+import com.kiliansteenman.teller.logger.assistedViewModelFactory
 import com.kiliansteenman.teller.logger.data.TellerLog
-import com.kiliansteenman.teller.logger.data.room.TellerLogDatabase
 import com.kiliansteenman.teller.logger.formatTimeStamp
-import java.util.concurrent.Executors.newSingleThreadExecutor
+import com.kiliansteenman.teller.logger.ui.detail.TellerDetailViewModel.Companion.PARAM_LOG_ID
 
 internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) {
 
-    private val logId: Long
-        get() = intent.getLongExtra(PARAM_LOG_ID, -1)
-
-    private val db: TellerLogDatabase
-        get() {
-            return Room.databaseBuilder(
-                applicationContext,
-                TellerLogDatabase::class.java, "database-name"
-            ).build()
-        }
+    private val viewModel: TellerDetailViewModel by lazy {
+        ViewModelProvider(
+            owner = this,
+            factory = assistedViewModelFactory { savedStateHandle ->
+                TellerDetailViewModel(application, savedStateHandle)
+            }
+        )[TellerDetailViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         findViewById<Toolbar>(R.id.detail_toolbar).setNavigationOnClickListener { onBackPressed() }
 
-        newSingleThreadExecutor().execute {
-            val log = db.tellerLogDao().get(logId)
-            runOnUiThread {
-                onLogLoaded(log)
-            }
-        }
+        viewModel.logEvent.observe(this, ::onLogLoaded)
     }
 
     private fun onLogLoaded(log: TellerLog) {
@@ -47,8 +40,6 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
     }
 
     companion object {
-
-        private const val PARAM_LOG_ID = "PARAM_LOG_ID"
 
         fun createIntent(context: Context, logId: Long): Intent {
             return Intent(context, TellerDetailActivity::class.java).apply {
