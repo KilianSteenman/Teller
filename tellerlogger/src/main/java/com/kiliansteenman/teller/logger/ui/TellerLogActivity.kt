@@ -30,7 +30,7 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
         }
 
         findViewById<Toolbar>(R.id.teller_toolbar).apply {
-            inflateMenu(R.menu.teller_log)
+            inflateMenu(R.menu.menu_teller_log)
             setOnMenuItemClickListener { onMenuItemClick(it) }
         }
 
