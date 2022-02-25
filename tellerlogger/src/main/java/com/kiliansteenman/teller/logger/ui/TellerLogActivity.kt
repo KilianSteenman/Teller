@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.ui.detail.TellerDetailActivity
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
@@ -34,7 +39,13 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
             setOnMenuItemClickListener { onMenuItemClick(it) }
         }
 
-        viewModel.logEvents.observe(this) { events -> adapter.logs = events }
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.state.collectLatest { logs -> adapter.logs = logs }
+                }
+            }
+        }
     }
 
     private fun onMenuItemClick(item: MenuItem): Boolean {
