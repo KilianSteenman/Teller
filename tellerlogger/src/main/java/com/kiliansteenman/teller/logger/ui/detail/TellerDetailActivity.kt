@@ -18,6 +18,7 @@ import com.kiliansteenman.teller.logger.formatTimeStamp
 import com.kiliansteenman.teller.logger.getShareIntent
 import com.kiliansteenman.teller.logger.ui.detail.TellerDetailViewModel.Companion.PARAM_LOG_ID
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) {
@@ -40,11 +41,10 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
             setOnMenuItemClickListener { onMenuItemClick(it) }
         }
 
-        viewModel.logEvent.observe(this, ::onLogLoaded)
-
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.events.collect { onViewEvent(it) }
+                launch { viewModel.events.collect { onViewEvent(it) } }
+                launch { viewModel.state.collectLatest(::onStateChanged) }
             }
         }
     }
@@ -55,6 +55,17 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
             true
         }
         else -> false
+    }
+
+    private fun onStateChanged(state: TellerDetailViewState) {
+        when (state) {
+            is TellerDetailViewState.Success -> {
+                onLogLoaded(state.tellerLog)
+            }
+            else -> {
+                // Do nothing
+            }
+        }
     }
 
     private fun onLogLoaded(log: TellerLog) {
