@@ -3,38 +3,67 @@ package com.kiliansteenman.teller.logger.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.room.Room
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.kiliansteenman.teller.logger.R
+import com.kiliansteenman.teller.logger.assistedViewModelFactory
 import com.kiliansteenman.teller.logger.data.TellerLog
-import com.kiliansteenman.teller.logger.data.room.TellerLogDatabase
 import com.kiliansteenman.teller.logger.formatTimeStamp
-import java.util.concurrent.Executors.newSingleThreadExecutor
+import com.kiliansteenman.teller.logger.getShareIntent
+import com.kiliansteenman.teller.logger.ui.detail.TellerDetailViewModel.Companion.PARAM_LOG_ID
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) {
 
-    private val logId: Long
-        get() = intent.getLongExtra(PARAM_LOG_ID, -1)
-
-    private val db: TellerLogDatabase
-        get() {
-            return Room.databaseBuilder(
-                applicationContext,
-                TellerLogDatabase::class.java, "database-name"
-            ).build()
-        }
+    private val viewModel: TellerDetailViewModel by lazy {
+        ViewModelProvider(
+            owner = this,
+            factory = assistedViewModelFactory { savedStateHandle ->
+                TellerDetailViewModel(application, savedStateHandle)
+            }
+        )[TellerDetailViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        findViewById<Toolbar>(R.id.detail_toolbar).setNavigationOnClickListener { onBackPressed() }
+        findViewById<Toolbar>(R.id.detail_toolbar).apply {
+            inflateMenu(R.menu.menu_teller_detail)
+            setNavigationOnClickListener { onBackPressed() }
+            setOnMenuItemClickListener { onMenuItemClick(it) }
+        }
 
-        newSingleThreadExecutor().execute {
-            val log = db.tellerLogDao().get(logId)
-            runOnUiThread {
-                onLogLoaded(log)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch { viewModel.events.collect { onViewEvent(it) } }
+                launch { viewModel.state.collectLatest(::onStateChanged) }
+            }
+        }
+    }
+
+    private fun onMenuItemClick(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menu_teller_detail_log_share -> {
+            viewModel.onShareLogClicked()
+            true
+        }
+        else -> false
+    }
+
+    private fun onStateChanged(state: TellerDetailViewState) {
+        when (state) {
+            is TellerDetailViewState.Success -> {
+                onLogLoaded(state.tellerLog)
+            }
+            else -> {
+                // Do nothing
             }
         }
     }
@@ -46,9 +75,22 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
         findViewById<TextView>(R.id.detail_content).text = log.content
     }
 
-    companion object {
+    private fun onViewEvent(event: TellerEvent) {
+        when (event) {
+            is TellerEvent.ShareLog -> shareLogsAsText(event.sharableLogs)
+        }
+    }
 
-        private const val PARAM_LOG_ID = "PARAM_LOG_ID"
+    private fun shareLogsAsText(sharableLogs: String) {
+        val shareIntent = this@TellerDetailActivity.getShareIntent(
+            intentTitle = getString(R.string.share_teller_log_title),
+            intentSubject = getString(R.string.share_teller_log_subject),
+            content = sharableLogs,
+        )
+        startActivity(shareIntent)
+    }
+
+    companion object {
 
         fun createIntent(context: Context, logId: Long): Intent {
             return Intent(context, TellerDetailActivity::class.java).apply {
