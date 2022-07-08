@@ -29,6 +29,9 @@ class RoomTellerLogRepository(
         tellerLogDao.get(generatedId)
     }
 
+    override fun search(query: String?): Flow<List<TellerLog>> =
+        tellerLogDao.getForQuery(query)
+
     override fun getAll(): Flow<List<TellerLog>> = tellerLogDao.getAll()
 
     override fun clearLog() {

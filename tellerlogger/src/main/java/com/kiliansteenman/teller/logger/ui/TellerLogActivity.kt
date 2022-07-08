@@ -3,6 +3,7 @@ package com.kiliansteenman.teller.logger.ui
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
     private val viewModel: TellerLogViewModel by lazy {
-        ViewModelProvider(this).get(TellerLogViewModel::class.java)
+        ViewModelProvider(this)[TellerLogViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,19 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
         findViewById<Toolbar>(R.id.teller_toolbar).apply {
             inflateMenu(R.menu.menu_teller_log)
             setOnMenuItemClickListener { onMenuItemClick(it) }
+
+            (menu.findItem(R.id.menu_teller_log_search).actionView as SearchView).setOnQueryTextListener(
+                object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        viewModel.onQueryChanged(query)
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        viewModel.onQueryChanged(newText)
+                        return true
+                    }
+                })
         }
 
         lifecycleScope.launch {
@@ -51,7 +65,7 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
     private fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_teller_log_clear_all -> viewModel.onClearLogClicked()
-            R.id.menu_teller_log_filter -> openFilters()
+            R.id.menu_teller_log_search -> openFilters()
             else -> false
         }
     }
