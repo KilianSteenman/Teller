@@ -14,7 +14,7 @@ interface TellerLogDao {
     fun getAll(): Flow<List<TellerLog>>
 
     @Query("SELECT * FROM tellerlog WHERE content LIKE '%' || :query || '%' ORDER BY logDate DESC")
-    fun getForQuery(query: String?): Flow<List<TellerLog>>
+    fun search(query: String?): Flow<List<TellerLog>>
 
     @Insert
     suspend fun insert(event: TellerLog): Long

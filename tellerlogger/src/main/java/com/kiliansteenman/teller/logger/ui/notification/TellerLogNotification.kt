@@ -1,4 +1,4 @@
-package com.kiliansteenman.teller.logger.ui
+package com.kiliansteenman.teller.logger.ui.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

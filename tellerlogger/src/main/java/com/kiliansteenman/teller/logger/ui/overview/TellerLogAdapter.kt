@@ -1,4 +1,4 @@
-package com.kiliansteenman.teller.logger.ui
+package com.kiliansteenman.teller.logger.ui.overview
 
 import android.view.LayoutInflater
 import android.view.View

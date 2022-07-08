@@ -2,7 +2,7 @@ package com.kiliansteenman.teller.logger
 
 import android.content.Context
 import android.content.Intent
-import com.kiliansteenman.teller.logger.ui.TellerLogActivity
+import com.kiliansteenman.teller.logger.ui.overview.TellerLogActivity
 
 object TellerLogIntentFactory {
 

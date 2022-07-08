@@ -6,9 +6,9 @@ interface TellerLogRepository {
 
     suspend fun addLog(log: TellerLog): TellerLog
 
-    fun search(query: String?): Flow<List<TellerLog>>
+    suspend fun get(id: Long): TellerLog
 
-    fun getAll(): Flow<List<TellerLog>>
+    fun search(query: String?): Flow<List<TellerLog>>
 
     fun clearLog()
 

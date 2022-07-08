@@ -5,31 +5,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.kiliansteenman.teller.logger.R
-import com.kiliansteenman.teller.logger.assistedViewModelFactory
+import com.kiliansteenman.teller.logger.data.RepositoryProvider
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.formatTimeStamp
 import com.kiliansteenman.teller.logger.getShareIntent
 import com.kiliansteenman.teller.logger.ui.detail.TellerDetailViewModel.Companion.PARAM_LOG_ID
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) {
 
-    private val viewModel: TellerDetailViewModel by lazy {
-        ViewModelProvider(
+    private val viewModel: TellerDetailViewModel by viewModels {
+        TellerDetailViewModelFactory(
+            repository = RepositoryProvider.getRepository(this),
             owner = this,
-            factory = assistedViewModelFactory { savedStateHandle ->
-                TellerDetailViewModel(application, savedStateHandle)
-            }
-        )[TellerDetailViewModel::class.java]
+            defaultArgs = intent.extras
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,10 +90,9 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
 
     companion object {
 
-        fun createIntent(context: Context, logId: Long): Intent {
-            return Intent(context, TellerDetailActivity::class.java).apply {
+        fun createIntent(context: Context, logId: Long) =
+            Intent(context, TellerDetailActivity::class.java).apply {
                 putExtra(PARAM_LOG_ID, logId)
             }
-        }
     }
 }

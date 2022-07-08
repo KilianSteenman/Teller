@@ -1,26 +1,32 @@
-package com.kiliansteenman.teller.logger.ui
+package com.kiliansteenman.teller.logger.ui.overview
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.teller.logger.R
+import com.kiliansteenman.teller.logger.data.RepositoryProvider
+import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.ui.detail.TellerDetailActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
-    private val viewModel: TellerLogViewModel by lazy {
-        ViewModelProvider(this)[TellerLogViewModel::class.java]
+    private val viewModel: TellerLogViewModel by viewModels {
+        TellerLogViewModelFactory(RepositoryProvider.getRepository(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +61,36 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.state.collectLatest { logs -> adapter.logs = logs }
+                launch { viewModel.state.collectLatest(::onStateChanged) }
+            }
+        }
+    }
+
+    private fun onStateChanged(state: OverViewState) {
+        val logsRecyclerView = findViewById<RecyclerView>(R.id.teller_recyclerview)
+        val errorMessageView = findViewById<TextView>(R.id.teller_error_message)
+        val loadingView =
+            findViewById<ContentLoadingProgressBar>(R.id.teller_loading_progressbar)
+        val adapter = (logsRecyclerView.adapter as TellerLogAdapter)
+
+        when (state) {
+            is OverViewState.Loading -> {
+                loadingView.show()
+            }
+            is OverViewState.Content -> {
+                loadingView.hide()
+                logsRecyclerView.isVisible = true
+                errorMessageView.isVisible = false
+                adapter.logs = state.logs
+            }
+            is OverViewState.Error -> {
+                loadingView.hide()
+                logsRecyclerView.isVisible = false
+                errorMessageView.apply {
+                    isVisible = true
+                    text = getString(state.message)
                 }
+                adapter.logs = emptyList()
             }
         }
     }
@@ -73,4 +106,10 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
     private fun openFilters(): Boolean {
         return true
     }
+}
+
+internal sealed class OverViewState {
+    object Loading : OverViewState()
+    data class Content(val logs: List<TellerLog>) : OverViewState()
+    data class Error(@StringRes val message: Int) : OverViewState()
 }

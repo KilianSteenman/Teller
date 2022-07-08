@@ -1,7 +1,7 @@
 package com.kiliansteenman.teller.logger
 
 import com.kiliansteenman.teller.logger.data.TellerLogRepository
-import com.kiliansteenman.teller.logger.ui.TellerLogNotification
+import com.kiliansteenman.teller.logger.ui.notification.TellerLogNotification
 import com.kiliansteenman.teller.logging.TellerLogger
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch

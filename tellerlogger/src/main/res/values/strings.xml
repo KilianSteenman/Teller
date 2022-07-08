@@ -15,4 +15,7 @@
 
     <string name="filters_framework_title">Frameworks</string>
 
+    <!-- Error messages -->
+    <string name="teller_error_empty">No logs found</string>
+
 </resources>
