@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
 import com.kiliansteenman.teller.logger.data.RepositoryProvider
-import com.kiliansteenman.teller.logger.ui.TellerLogNotification
+import com.kiliansteenman.teller.logger.ui.notification.TellerLogNotification
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 

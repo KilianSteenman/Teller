@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class RoomTellerLogRepository(
+internal class RoomTellerLogRepository(
     context: Context
 ) : TellerLogRepository {
 
@@ -29,7 +29,9 @@ class RoomTellerLogRepository(
         tellerLogDao.get(generatedId)
     }
 
-    override fun getAll(): Flow<List<TellerLog>> = tellerLogDao.getAll()
+    override suspend fun get(id: Long): TellerLog = tellerLogDao.get(id)
+
+    override fun search(query: String): Flow<List<TellerLog>> = tellerLogDao.search(query)
 
     override fun clearLog() {
         executor.execute { tellerLogDao.clearAll() }

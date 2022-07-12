@@ -36,6 +36,4 @@ dependencies {
 
     debugImplementation project(':tellerlogger')
     releaseImplementation project(':tellerlogger-noop')
-
-    testImplementation "junit:junit:$junit_version"
 }

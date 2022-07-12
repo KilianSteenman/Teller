@@ -2,7 +2,7 @@ package com.kiliansteenman.teller.logger
 
 import android.content.Context
 import com.kiliansteenman.teller.logger.data.RepositoryProvider
-import com.kiliansteenman.teller.logger.ui.TellerLogNotification
+import com.kiliansteenman.teller.logger.ui.notification.TellerLogNotification
 
 object LoggerProvider {
 
