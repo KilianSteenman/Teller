@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/teller_toolbar"
             android:gravity="center"
-            tools:text="This is an error message" />
+            android:text="@string/teller_error_empty" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/teller_loading_progressbar"

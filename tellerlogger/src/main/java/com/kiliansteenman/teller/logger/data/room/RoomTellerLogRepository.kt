@@ -31,7 +31,7 @@ internal class RoomTellerLogRepository(
 
     override suspend fun get(id: Long): TellerLog = tellerLogDao.get(id)
 
-    override fun search(query: String?): Flow<List<TellerLog>> = tellerLogDao.search(query)
+    override fun search(query: String): Flow<List<TellerLog>> = tellerLogDao.search(query)
 
     override fun clearLog() {
         executor.execute { tellerLogDao.clearAll() }

@@ -2,7 +2,6 @@ package com.kiliansteenman.teller.logger.ui.overview
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.TellerLogRepository
 import com.kiliansteenman.teller.logger.ui.notification.TellerLogNotification
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +21,7 @@ internal class TellerLogViewModel(
         .flatMapLatest { logRepository.search(it) }
         .map { logs ->
             if (logs.isEmpty()) {
-                OverViewState.Error(R.string.teller_error_empty)
+                OverViewState.Error
             } else {
                 OverViewState.Content(logs)
             }

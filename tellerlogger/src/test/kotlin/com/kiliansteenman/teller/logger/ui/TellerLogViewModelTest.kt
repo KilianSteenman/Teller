@@ -2,7 +2,6 @@ package com.kiliansteenman.teller.logger.ui
 
 import app.cash.turbine.FlowTurbine
 import app.cash.turbine.test
-import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.ui.overview.OverViewState
 import com.kiliansteenman.teller.logger.ui.overview.TellerLogViewModel
@@ -52,7 +51,7 @@ internal class TellerLogViewModelTest {
         viewModel.state.test {
             awaitLoadingState()
 
-            assertEquals(R.string.teller_error_empty, awaitErrorStateItem().message)
+            awaitErrorStateItem()
         }
     }
 
@@ -71,7 +70,7 @@ internal class TellerLogViewModelTest {
 
                 viewModel.onClearLogClicked()
 
-                assertEquals(R.string.teller_error_empty, awaitErrorStateItem().message)
+                awaitErrorStateItem()
             }
         }
 

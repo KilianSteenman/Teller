@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -86,10 +85,7 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
             is OverViewState.Error -> {
                 loadingView.hide()
                 logsRecyclerView.isVisible = false
-                errorMessageView.apply {
-                    isVisible = true
-                    text = getString(state.message)
-                }
+                errorMessageView.isVisible = true
                 adapter.logs = emptyList()
             }
         }
@@ -111,5 +107,5 @@ internal class TellerLogActivity : AppCompatActivity(R.layout.teller) {
 internal sealed class OverViewState {
     object Loading : OverViewState()
     data class Content(val logs: List<TellerLog>) : OverViewState()
-    data class Error(@StringRes val message: Int) : OverViewState()
+    object Error : OverViewState()
 }
