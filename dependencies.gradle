@@ -1,14 +1,13 @@
 ext {
-    version_code = 6
     version_name = '0.2.0'
 
-    kotlin_version = '1.6.21'
+    kotlin_version = '1.7.0'
 
     compile_sdk_version = 31
     target_sdk_version = 31
     min_sdk_version = 16
 
-    android_gradle_plugin_version = '7.0.1'
+    android_gradle_plugin_version = '7.2.1'
 
     androidx_activity_version = '1.5.0'
     androidx_appcompat_version = '1.4.2'
