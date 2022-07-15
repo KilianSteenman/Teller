@@ -1,26 +1,21 @@
 package com.kiliansteenman.teller.sample.adobe
 
 import android.util.Log
-import com.kiliansteenman.teller.AnalyticsAdapter
+import com.kiliansteenman.teller.Framework
+import com.kiliansteenman.teller.Measurement
 
-internal class AdobeStateAnalyticsAdapter : AnalyticsAdapter<AdobeState> {
+internal class AdobeFramework : Framework {
 
-    override fun count(event: AdobeState) {
-        Log.i("Adobe", "Sending state event to Adobe ${event.name} with params ${event.data}")
+    override val name: String = NAME
 
-        // Send the event to Adobe.
-        // Example code:
-        // MobileCore.trackState(event.name, event.data)
+    override fun count(measurement: Measurement) {
+        Log.i(
+            "Adobe",
+            "Sending state event to Adobe ${measurement.name} with params ${measurement.params}"
+        )
     }
-}
 
-internal class AdobeActionAnalyticsAdapter: AnalyticsAdapter<AdobeAction> {
-
-    override fun count(event: AdobeAction) {
-        Log.i("Adobe", "Sending action event to Adobe ${event.name} with params ${event.data}")
-
-        // Send the event to Adobe.
-        // Example code:
-        // MobileCore.trackAction(event.name, event.data)
+    companion object {
+        const val NAME = "Adobe"
     }
 }

@@ -16,7 +16,7 @@ class TellerTest {
     fun `when adapter is registered for type, then adapter is used`() {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
         Teller.instance.apply {
-            addAdapter(eventAdapter)
+            addMeasurementChain(eventAdapter)
         }
 
         val event = Event("This an event name")
@@ -30,8 +30,8 @@ class TellerTest {
         val eventAdapter = FakeAnalyticsAdapter<Event>()
         val otherEventAdapter = FakeAnalyticsAdapter<OtherEvent>()
         Teller.instance.apply {
-            addAdapter(otherEventAdapter)
-            addAdapter(eventAdapter)
+            addMeasurementChain(otherEventAdapter)
+            addMeasurementChain(eventAdapter)
         }
 
         val otherEvent = OtherEvent("Other event name")
@@ -42,7 +42,7 @@ class TellerTest {
     }
 }
 
-internal open class FakeAnalyticsAdapter<T> : AnalyticsAdapter<T> {
+internal open class FakeAnalyticsAdapter<T> : Framework<T> {
 
     var isInvoked = false
 
