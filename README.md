@@ -88,9 +88,25 @@ Teller.instance.count(
 
 Some common Analytics Frameworks are already available for use.
 
-### Firebase
-
 // TODO: Figure out how these will be uploaded
+
+### Adobe
+
+```groovy
+dependencies {
+    implementation "com.github.KilianSteenman.Teller:adobe:<latest version>"
+}
+```
+
+### AppsFlyer
+
+```groovy
+dependencies {
+    implementation "com.github.KilianSteenman.Teller:appsflyer:<latest version>"
+}
+```
+
+### Firebase
 
 ```groovy
 dependencies {
