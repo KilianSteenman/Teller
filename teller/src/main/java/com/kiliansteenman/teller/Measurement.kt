@@ -13,7 +13,7 @@ data class Measurement(
     open class Builder(
         val framework: String,
         val type: String,
-        private var _name: String,
+        var _name: String = "",
         private val params: MutableMap<String, Any> = mutableMapOf()
     ) {
 
