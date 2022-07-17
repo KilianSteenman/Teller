@@ -32,6 +32,7 @@ ext {
     turbine_version = '0.8.0'
 
     // Analytics Framework dependencies
-    firebase_analytics_version = '21.1.0'
     adobe_analytics_version = '1.2.10'
+    appsflyer_version = '6.3.2'
+    firebase_analytics_version = '21.1.0'
 }

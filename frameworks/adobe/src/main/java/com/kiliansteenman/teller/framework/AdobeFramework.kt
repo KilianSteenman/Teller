@@ -1,6 +1,5 @@
 package com.kiliansteenman.teller.framework
 
-import android.util.Log
 import com.adobe.marketing.mobile.MobileCore
 import com.kiliansteenman.teller.Framework
 import com.kiliansteenman.teller.Measurement
