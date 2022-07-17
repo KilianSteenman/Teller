@@ -33,4 +33,5 @@ ext {
 
     // Analytics Framework dependencies
     firebase_analytics_version = '21.1.0'
+    adobe_analytics_version = '1.2.10'
 }
