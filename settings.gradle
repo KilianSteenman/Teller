@@ -1,6 +1,7 @@
 include ':teller',
         ':tellerlogger',
         ':tellerlogger-noop',
+        ':frameworks:firebase',
         ':sample'
 
 rootProject.name = 'teller-parent'

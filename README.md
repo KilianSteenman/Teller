@@ -84,7 +84,21 @@ Teller.instance.count(
 )
 ```
 
-## Interceptors
+## Provided Frameworks
+
+Some common Analytics Frameworks are already available for use.
+
+### Firebase
+
+// TODO: Figure out how these will be uploaded
+
+```groovy
+dependencies {
+    implementation "com.github.KilianSteenman.Teller:firebase:<latest version>"
+}
+```
+
+## Provided interceptors
 
 Some useful interceptors that are part of this repository.
 

@@ -30,4 +30,7 @@ ext {
     junit5_version = '5.8.2'
 
     turbine_version = '0.8.0'
+
+    // Analytics Framework dependencies
+    firebase_analytics_version = '21.1.0'
 }

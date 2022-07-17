@@ -24,7 +24,7 @@ class LoggingMeasurementInterceptor(
         val log = TellerLog(
             framework = measurement.framework,
             type = measurement.type,
-            title = measurement.name ?: "",
+            title = measurement.name,
             content = measurement.params.map { entry -> "${entry.key}: ${entry.value}" }
                 .joinToString(separator = "\n")
         )
