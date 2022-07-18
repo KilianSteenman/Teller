@@ -1,9 +1,9 @@
 include ':teller',
-        ':tellerlogger',
-        ':tellerlogger-noop',
         ':frameworks:adobe',
         ':frameworks:appsflyer',
         ':frameworks:firebase',
+        ':interceptors:tellerlogger',
+        ':interceptors:tellerlogger-noop',
         ':sample'
 
 rootProject.name = 'teller-parent'

@@ -36,6 +36,6 @@ dependencies {
 
     implementation project(':teller')
 
-    debugImplementation project(':tellerlogger')
-    releaseImplementation project(':tellerlogger-noop')
+    debugImplementation project(':interceptors:tellerlogger')
+    releaseImplementation project(':interceptors:tellerlogger-noop')
 }
