@@ -36,12 +36,6 @@
         android:text="@string/send_adobe_state" />
 
     <Button
-        android:id="@+id/send_unregistered_event_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/send_unregistered_event" />
-
-    <Button
         android:id="@+id/open_log_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

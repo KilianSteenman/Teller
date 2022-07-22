@@ -38,4 +38,5 @@ ext {
 
     // Interceptor dependencies
     flipper_version = '0.154.0'
+    facebook_so_loader_version = '0.10.4'
 }

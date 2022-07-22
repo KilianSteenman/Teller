@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kiliansteenman.teller.Measurement
 import com.kiliansteenman.teller.MeasurementChain
 import com.kiliansteenman.teller.Teller
+import com.kiliansteenman.teller.framework.FlipperInterceptor
 import com.kiliansteenman.teller.logger.LoggingMeasurementInterceptor
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.sample.adobe.AdobeFramework
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         bindButtons(binding)
 
-        setupTeller()
+        teller = Teller.instance
     }
 
     private fun bindButtons(binding: ActivityMainBinding) {
@@ -51,9 +52,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.sendAdobeStateButton.setOnClickListener {
-            Measurement.Builder(AdobeFramework.NAME, "State")
-                .setName("MainActivity")
-                .build()
+            teller.count(
+                Measurement.Builder(AdobeFramework.NAME, "State")
+                    .setName("MainActivity")
+                    .build()
+            )
         }
 
         binding.openLogButton.setOnClickListener {
@@ -65,24 +68,6 @@ class MainActivity : AppCompatActivity() {
             )
 
             startActivity(TellerLogIntentFactory.createIntent(this@MainActivity))
-        }
-    }
-
-    private fun setupTeller() {
-        val loggingInterceptor = LoggingMeasurementInterceptor(applicationContext)
-
-        teller = Teller.instance.apply {
-            addMeasurementChain(
-                MeasurementChain.Builder()
-                    .addInterceptor(loggingInterceptor)
-                    .build(FirebaseFramework())
-            )
-            addMeasurementChain(
-                MeasurementChain.Builder()
-                    .addInterceptor(UserStateInterceptor())
-                    .addInterceptor(loggingInterceptor)
-                    .build(AdobeFramework())
-            )
         }
     }
 }

@@ -38,4 +38,10 @@ dependencies {
 
     debugImplementation project(':interceptors:tellerlogger')
     releaseImplementation project(':interceptors:tellerlogger-noop')
+
+    // Flipper (https://github.com/facebook/flipper)
+    implementation project(':interceptors:flipper:flipper-client-plugin')
+    debugImplementation "com.facebook.flipper:flipper:$flipper_version"
+    debugImplementation "com.facebook.soloader:soloader:$facebook_so_loader_version"
+    releaseImplementation "com.facebook.flipper:flipper-noop:$flipper_version"
 }
