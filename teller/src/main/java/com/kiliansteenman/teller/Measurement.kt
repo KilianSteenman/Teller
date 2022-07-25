@@ -27,6 +27,10 @@ data class Measurement(
             params[key] = value
         }
 
+        fun addParams(params: Map<String, Any>) = this.apply {
+            this.params.putAll(params)
+        }
+
         fun build() = Measurement(
             framework = framework,
             type = type,

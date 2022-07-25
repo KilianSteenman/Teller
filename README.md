@@ -17,8 +17,7 @@ repositories {
 }
 ```
 
-Latest
-version: [![JitPack](https://jitpack.io/v/KilianSteenman/Teller.svg)](https://jitpack.io/#KilianSteenman/Teller)
+Latest version: [![JitPack](https://jitpack.io/v/KilianSteenman/Teller.svg)](https://jitpack.io/#KilianSteenman/Teller)
 
 ```groovy
 dependencies {
