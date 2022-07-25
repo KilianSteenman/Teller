@@ -43,12 +43,65 @@ const columns: DataTableColumn<Row>[] = [
   },
 ];
 
+function paramsToKeyValuePairs(params: String) {
+    return params.slice(1, -1)
+        .split(/\s*,\s*/)
+        .map(chunk => chunk.split("="));
+}
+
 function renderSidebar(row: Row) {
-  return (
+    let keyValuePairs = paramsToKeyValuePairs(row["params"])
+
+    return (
+  <>
+    <style>{`
+      h2 {
+        padding-left:8px;
+        padding-top:16px;
+      }
+      table.summary {
+        width: 100%;
+        table-layout: fixed;
+      }
+      table.params {
+        width: 100%;
+      }
+      th, td {
+       padding:8px;
+      }
+      tr:nth-child(even) {
+        background-color: #F2F2F2;
+      }
+    `}</style>
     <div>
-        {row["params"]}
-        {typeof row["params"]}
+        <h2>Summary</h2>
+        <table class="summary">
+            <tr>
+                <td>Framework</td>
+                <td>{row["framework"]}</td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>{row["type"]}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{row["name"]}</td>
+            </tr>
+        </table>
     </div>
+    <div>
+        <h2>Params</h2>
+        <table class="params">
+        {keyValuePairs.map((value) => (
+        <tr>
+            <td>{ value[0] }</td>
+            <td>{ value[1] }</td>
+        </tr>
+        ))}
+        </table>
+    </div>
+    </>
   );
 }
 
