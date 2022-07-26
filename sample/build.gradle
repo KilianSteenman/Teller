@@ -43,5 +43,7 @@ dependencies {
     implementation project(':interceptors:flipper:flipper-client-plugin')
     debugImplementation "com.facebook.flipper:flipper:$flipper_version"
     debugImplementation "com.facebook.soloader:soloader:$facebook_so_loader_version"
-    releaseImplementation "com.facebook.flipper:flipper-noop:$flipper_version"
+    // TODO: Separate flipper sample? This should be the NOOP implementation
+    releaseImplementation "com.facebook.flipper:flipper:$flipper_version"
+    releaseImplementation "com.facebook.soloader:soloader:$facebook_so_loader_version"
 }
