@@ -1,7 +1,8 @@
 ext {
     version_name = '0.2.0'
 
-    kotlin_version = '1.7.0'
+    kotlin_version = '1.7.10'
+    ksp_version = '1.7.10-1.0.6'
 
     compile_sdk_version = 31
     target_sdk_version = 31
