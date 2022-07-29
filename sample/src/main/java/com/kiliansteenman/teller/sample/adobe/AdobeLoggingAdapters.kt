@@ -10,8 +10,7 @@ internal class AdobeStateLoggingAdapter : LoggingAdapter<AdobeState> {
             framework = "Adobe Analytics",
             type = "State",
             title = event.name,
-            content = event.data.map { entry -> "${entry.key}: ${entry.value}" }
-                .joinToString(separator = "\n")
+            params = event.data,
         )
 }
 
@@ -22,8 +21,7 @@ internal class AdobeActionLoggingAdapter : LoggingAdapter<AdobeAction> {
             framework = "Adobe Analytics",
             type = "Action",
             title = event.name,
-            content = event.data.map { entry -> "${entry.key}: ${entry.value}" }
-                .joinToString(separator = "\n")
+            params = event.data,
         )
 }
 

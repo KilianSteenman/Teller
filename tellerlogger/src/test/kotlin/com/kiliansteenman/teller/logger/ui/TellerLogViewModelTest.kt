@@ -21,7 +21,7 @@ internal class TellerLogViewModelTest {
         framework = "hello",
         type = "screenview",
         title = "title",
-        content = "content"
+        params = mapOf("key" to "value")
     )
 
     private fun viewModel(repository: FakeTellerLogRepository = FakeTellerLogRepository()): TellerLogViewModel =
@@ -96,9 +96,9 @@ internal class TellerLogViewModelTest {
             viewModel = viewModel(
                 FakeTellerLogRepository(
                     listOf(
-                        testLog.copy(content = "first item"),
-                        testLog.copy(content = "second item"),
-                        testLog.copy(content = "third item")
+                        testLog.copy(params = mapOf("position" to "first item")),
+                        testLog.copy(params = mapOf("position" to "second item")),
+                        testLog.copy(params = mapOf("position" to "third item"))
                     )
                 )
             )

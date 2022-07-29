@@ -35,7 +35,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.sendAdobeActionButton.setOnClickListener {
-            teller.count(AdobeAction("click", mapOf("button_press" to "send_adobe_event")))
+            teller.count(
+                AdobeAction(
+                    name = "click",
+                    data = mapOf(
+                        "button_press" to "send_adobe_event",
+                        "user_state" to "logged_out",
+                        "is_experiment_active" to "true",
+                        "money_on_the_bank" to "12,50",
+                        "notification_enabled" to "false",
+                        "active_experiments" to "EXPERIMENT_1,EXPERIMENT_2,EXPERIMENT_7,EXPERIMENT_8,EXPERIMENT_9,EXPERIMENT_27,EXPERIMENT_200"
+                    )
+                )
+            )
         }
 
         binding.sendAdobeStateButton.setOnClickListener {

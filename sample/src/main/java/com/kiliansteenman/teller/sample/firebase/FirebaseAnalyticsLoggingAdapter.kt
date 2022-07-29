@@ -10,7 +10,6 @@ internal class FirebaseAnalyticsLoggingAdapter : LoggingAdapter<FirebaseEvent> {
             framework = "Firebase",
             type = "Event",
             title = event.name,
-            content = event.params.map { entry -> "${entry.key}: ${entry.value}" }
-                .joinToString(separator = "\n")
+            params = event.params
         )
 }
