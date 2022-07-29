@@ -1,4 +1,4 @@
-package com.kiliansteenman.teller.logger
+package com.kiliansteenman.teller.logger.share
 
 import android.content.Context
 import android.content.Intent

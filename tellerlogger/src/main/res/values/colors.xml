@@ -5,4 +5,7 @@
     <color name="tellerColorPrimaryDark">#054950</color>
     <color name="tellerColorOnPrimary">#ffffff</color>
 
+    <color name="teller_param_background_odd">#FFFFFF</color>
+    <color name="teller_param_background_even">#F2F2F2</color>
+
 </resources>

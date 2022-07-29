@@ -11,11 +11,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.RepositoryProvider
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.formatTimeStamp
-import com.kiliansteenman.teller.logger.getShareIntent
+import com.kiliansteenman.teller.logger.share.getShareIntent
 import com.kiliansteenman.teller.logger.ui.detail.TellerDetailViewModel.Companion.PARAM_LOG_ID
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +31,8 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
         )
     }
 
+    private val tellerAdapter = TellerParamAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,6 +40,10 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
             inflateMenu(R.menu.menu_teller_detail)
             setNavigationOnClickListener { onBackPressed() }
             setOnMenuItemClickListener { onMenuItemClick(it) }
+        }
+
+        findViewById<RecyclerView>(R.id.detail_params).apply {
+            adapter = tellerAdapter
         }
 
         lifecycleScope.launch {
@@ -57,12 +64,8 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
 
     private fun onStateChanged(state: TellerDetailViewState) {
         when (state) {
-            is TellerDetailViewState.Success -> {
-                onLogLoaded(state.tellerLog)
-            }
-            else -> {
-                // Do nothing
-            }
+            is TellerDetailViewState.Success -> onLogLoaded(state.tellerLog)
+            else -> Unit // Do nothing
         }
     }
 
@@ -70,7 +73,7 @@ internal class TellerDetailActivity : AppCompatActivity(R.layout.teller_detail) 
         findViewById<TextView>(R.id.detail_title).text = log.title
         findViewById<TextView>(R.id.detail_timestamp).text = log.logDate.formatTimeStamp()
         findViewById<TextView>(R.id.detail_type).text = log.type
-        findViewById<TextView>(R.id.detail_content).text = log.content
+        tellerAdapter.setParameters(log.params)
     }
 
     private fun onViewEvent(event: TellerEvent) {

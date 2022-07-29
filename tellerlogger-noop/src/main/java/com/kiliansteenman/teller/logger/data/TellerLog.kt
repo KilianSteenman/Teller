@@ -6,5 +6,5 @@ data class TellerLog(
     val type: String,
     val logDate: Long = System.currentTimeMillis(),
     val title: String,
-    val content: String
+    val params: Map<String, String>,
 )

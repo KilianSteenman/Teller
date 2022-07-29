@@ -24,7 +24,7 @@ internal class FakeTellerLogRepository(
     }
 
     override fun search(query: String): Flow<List<TellerLog>> =
-        logs.map { it.filter { log -> log.content.contains(query) } }
+        logs.map { it.filter { log -> log.params.toString().contains(query) } }
 
     override fun clearLog() {
         logs.tryEmit(emptyList())

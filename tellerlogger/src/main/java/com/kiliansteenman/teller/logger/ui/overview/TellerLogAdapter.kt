@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kiliansteenman.teller.logger.R
 import com.kiliansteenman.teller.logger.data.TellerLog
 import com.kiliansteenman.teller.logger.formatTimeStamp
+import com.kiliansteenman.teller.logger.prettyFormat
 
 internal class TellerLogAdapter(
     private val onItemClickListener: (TellerLog) -> Unit
@@ -36,14 +37,14 @@ internal class TellerLogAdapter(
         private val frameworkTextView: TextView = itemView.findViewById(R.id.teller_framework)
         private val logTypeTextView: TextView = itemView.findViewById(R.id.teller_log_type)
         private val titleTextView: TextView = itemView.findViewById(R.id.teller_item_title)
-        private val contentTextView: TextView = itemView.findViewById(R.id.teller_item_content)
+        private val paramsTextView: TextView = itemView.findViewById(R.id.teller_item_params)
         private val timeStampTextView: TextView = itemView.findViewById(R.id.teller_item_timestamp)
 
         fun bind(log: TellerLog) {
             frameworkTextView.text = log.framework
             logTypeTextView.text = log.type
             titleTextView.text = log.title
-            contentTextView.text = log.content
+            paramsTextView.text = log.params.prettyFormat()
             timeStampTextView.text = log.logDate.formatTimeStamp()
 
             itemView.setOnClickListener { onItemClickListener.invoke(log) }

@@ -11,5 +11,5 @@ data class TellerLog(
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "logDate") val logDate: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "content") val content: String
+    @ColumnInfo(name = "params") val params: Map<String, String>,
 )
