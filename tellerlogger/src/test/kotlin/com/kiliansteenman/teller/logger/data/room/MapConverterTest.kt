@@ -32,6 +32,14 @@ internal class MapConverterTest {
         }
 
         @Test
+        fun `when the string contains a value but without key, then key is blank`() {
+            val map = mapConverter.toMap("${KEY_VALUE_SPLIT}value")
+
+            assertEquals(1, map.size)
+            assertEquals("value", map[""])
+        }
+
+        @Test
         fun `when the string contains a single key value pair, then map contains a single item`() {
             val map = mapConverter.toMap("key${KEY_VALUE_SPLIT}value")
 
@@ -98,6 +106,42 @@ internal class MapConverterTest {
             assertEquals(
                 "key${KEY_VALUE_SPLIT}value${PARAM_SPLIT}space${KEY_VALUE_SPLIT}a space",
                 value
+            )
+        }
+
+        @Test
+        fun `map with blank value is converted to a String`() {
+            val value = mapConverter.fromMap(
+                mapOf(
+                    "key" to "value",
+                    "empty" to "",
+                    "other" to "thing",
+                )
+            )
+
+            assertEquals(
+                "key${KEY_VALUE_SPLIT}value${PARAM_SPLIT}empty${KEY_VALUE_SPLIT}${PARAM_SPLIT}other${KEY_VALUE_SPLIT}thing",
+                value
+            )
+        }
+    }
+
+    @Nested
+    inner class FromToTest {
+
+        @Test
+        fun `map is the same when converted to String and back`() {
+            val map = mapOf(
+                "key" to "value",
+                "empty" to "",
+                "other" to "thing",
+            )
+
+            val stringValue = mapConverter.fromMap(map)
+
+            assertEquals(
+                map,
+                mapConverter.toMap(stringValue)
             )
         }
     }
