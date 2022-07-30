@@ -25,8 +25,7 @@ class LoggingMeasurementInterceptor(
             framework = measurement.framework,
             type = measurement.type,
             title = measurement.name,
-            content = measurement.params.map { entry -> "${entry.key}: ${entry.value}" }
-                .joinToString(separator = "\n")
+            params = measurement.params.mapValues { value -> value.toString() },
         )
 
         scope.launch {
