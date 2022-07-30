@@ -1,5 +1,5 @@
 ext {
-    version_name = '0.2.0'
+    version_name = '0.2.1'
 
     kotlin_version = '1.7.10'
     ksp_version = '1.7.10-1.0.6'
