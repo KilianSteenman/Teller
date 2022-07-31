@@ -13,11 +13,11 @@ data class Measurement(
     open class Builder(
         val framework: String,
         val type: String,
-        var _name: String = "",
+        var name: String = "",
         private val params: MutableMap<String, Any> = mutableMapOf()
     ) {
 
-        fun setName(name: String) = this.apply { _name = name }
+        fun setName(name: String) = this.apply { this.name = name }
 
         fun addParam(param: Pair<String, String>) = this.apply {
             params[param.first] = param.second
@@ -34,7 +34,7 @@ data class Measurement(
         fun build() = Measurement(
             framework = framework,
             type = type,
-            name = _name,
+            name = name,
             params = params
         )
     }
