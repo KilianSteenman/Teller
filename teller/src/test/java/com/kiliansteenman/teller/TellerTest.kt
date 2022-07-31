@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-class TellerTest {
+internal class TellerTest {
 
     @AfterEach
     fun cleanup() {
@@ -13,43 +13,40 @@ class TellerTest {
     }
 
     @Test
-    fun `when adapter is registered for type, then adapter is used`() {
-        val eventAdapter = FakeAnalyticsAdapter<Event>()
+    fun `when chain is registered for Framework, then chain is used to send measurement`() {
+        val framework = FakeAnalyticsFramework()
         Teller.instance.apply {
-            addMeasurementChain(eventAdapter)
+            addMeasurementChain(MeasurementChain.Builder().build(framework))
         }
 
-        val event = Event("This an event name")
-        Teller.instance.count(event)
+        Teller.instance.count(Measurement.Builder(framework.name, "ScreenView").build())
 
-        assertTrue(eventAdapter.isInvoked)
+        assertTrue(framework.isInvoked)
     }
 
     @Test
-    fun `when multiple adapters are registered for different types, the correct adapter is used`() {
-        val eventAdapter = FakeAnalyticsAdapter<Event>()
-        val otherEventAdapter = FakeAnalyticsAdapter<OtherEvent>()
+    fun `when multiple Frameworks are registered, the correct Framework is used`() {
+        val framework1 = FakeAnalyticsFramework("framework1")
+        val framework2 = FakeAnalyticsFramework("framework2")
         Teller.instance.apply {
-            addMeasurementChain(otherEventAdapter)
-            addMeasurementChain(eventAdapter)
+            addMeasurementChain(MeasurementChain.Builder().build(framework1))
+            addMeasurementChain(MeasurementChain.Builder().build(framework2))
         }
 
-        val otherEvent = OtherEvent("Other event name")
-        Teller.instance.count(otherEvent)
+        Teller.instance.count(Measurement.Builder(framework1.name, "ScreenView").build())
 
-        assertTrue(otherEventAdapter.isInvoked)
-        assertFalse(eventAdapter.isInvoked)
+        assertTrue(framework1.isInvoked)
+        assertFalse(framework2.isInvoked)
     }
 }
 
-internal open class FakeAnalyticsAdapter<T> : Framework<T> {
+internal open class FakeAnalyticsFramework(
+    override val name: String = "Fake"
+) : Framework {
 
     var isInvoked = false
 
-    override fun count(event: T) {
+    override fun count(measurement: Measurement) {
         isInvoked = true
     }
 }
-
-data class Event(val name: String)
-data class OtherEvent(val name: String)

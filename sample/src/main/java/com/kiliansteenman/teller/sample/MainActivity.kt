@@ -3,10 +3,7 @@ package com.kiliansteenman.teller.sample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kiliansteenman.teller.Measurement
-import com.kiliansteenman.teller.MeasurementChain
 import com.kiliansteenman.teller.Teller
-import com.kiliansteenman.teller.framework.FlipperInterceptor
-import com.kiliansteenman.teller.logger.LoggingMeasurementInterceptor
 import com.kiliansteenman.teller.logger.TellerLogIntentFactory
 import com.kiliansteenman.teller.sample.adobe.AdobeFramework
 import com.kiliansteenman.teller.sample.databinding.ActivityMainBinding

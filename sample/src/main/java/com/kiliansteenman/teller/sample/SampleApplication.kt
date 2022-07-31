@@ -13,7 +13,7 @@ import com.kiliansteenman.teller.sample.firebase.FirebaseFramework
 
 class SampleApplication : Application() {
 
-    val flipperInterceptor = FlipperInterceptor()
+    private val flipperInterceptor = FlipperInterceptor()
 
     override fun onCreate() {
         super.onCreate()

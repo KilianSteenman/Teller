@@ -31,10 +31,6 @@ data class Measurement(
             this.params.putAll(params)
         }
 
-        fun <T> getParam(key: String): T? {
-            return params[key] as T?
-        }
-
         fun build() = Measurement(
             framework = framework,
             type = type,

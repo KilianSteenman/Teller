@@ -4,7 +4,7 @@ import android.util.Log
 import com.kiliansteenman.teller.Measurement
 import com.kiliansteenman.teller.MeasurementInterceptor
 
-class LoggingInterceptor(
+class LogcatInterceptor(
     private val tag: String = "Teller",
     private val logLevel: Int = Log.VERBOSE
 ) : MeasurementInterceptor {

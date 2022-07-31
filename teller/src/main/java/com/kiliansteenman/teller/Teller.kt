@@ -5,7 +5,7 @@ class Teller private constructor() {
     private val mapping = mutableMapOf<String, MeasurementChain>()
 
     fun addMeasurementChain(chain: MeasurementChain) {
-        mapping[chain.framework.name] = chain
+        mapping[chain.frameworkName] = chain
     }
 
     fun clearAdapters() {

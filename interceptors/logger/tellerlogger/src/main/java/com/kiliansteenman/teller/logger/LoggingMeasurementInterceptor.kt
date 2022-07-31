@@ -5,11 +5,9 @@ import com.kiliansteenman.teller.Measurement
 import com.kiliansteenman.teller.MeasurementInterceptor
 import com.kiliansteenman.teller.logger.data.RepositoryProvider
 import com.kiliansteenman.teller.logger.data.TellerLog
-import com.kiliansteenman.teller.logger.data.TellerLogRepository
 import com.kiliansteenman.teller.logger.ui.notification.TellerLogNotification
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlin.reflect.KClass
 
 class LoggingMeasurementInterceptor(
     context: Context

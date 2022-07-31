@@ -3,9 +3,9 @@ include ':teller',
         ':frameworks:appsflyer',
         ':frameworks:firebase',
         ':interceptors:flipper:flipper-client-plugin',
-        ':interceptors:logging',
-        ':interceptors:tellerlogger',
-        ':interceptors:tellerlogger-noop',
+        ':interceptors:logcat',
+        ':interceptors:logger:tellerlogger',
+        ':interceptors:logger:tellerlogger-noop',
         ':sample'
 
 rootProject.name = 'teller-parent'

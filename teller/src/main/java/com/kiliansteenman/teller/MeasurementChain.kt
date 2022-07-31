@@ -1,11 +1,14 @@
 package com.kiliansteenman.teller
 
 class MeasurementChain private constructor(
-    val framework: Framework,
-    val interceptors: List<MeasurementInterceptor>
+    private val framework: Framework,
+    private val interceptors: List<MeasurementInterceptor>
 ) {
 
-    fun measure(measurement: Measurement) {
+    val frameworkName: String
+        get() = framework.name
+
+    internal fun measure(measurement: Measurement) {
         var m = measurement
         interceptors.forEach { interceptor ->
             m = interceptor.process(m)
